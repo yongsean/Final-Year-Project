@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <title>Register Customer Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            margin-bottom: 20px;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background: white;
+            ;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+            background-color: white;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            background-color: white;
+            ;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            background-color: white;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            background-color: white;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border: 1px solid #E0E0E0;
+            background-color: white;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .nav-place {
+            background: white;
+            margin-left: 10px;
+            height: 20px;
+        }
+
+        .nav-place a {
+            text-decoration: none;
+            color: grey
+        }
+
+
+
+        .details-introduction p {
+            margin-left: 130px;
+        }
+
+        .property-images {
+            width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .image-container {
+            display: flex;
+            overflow: hidden;
+        }
+
+        .property-image {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .image-navigation {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            /* Initially hide navigation icons */
+        }
+
+        .image-container:hover .image-navigation {
+            display: flex;
+            /* Show navigation icons on hover */
+        }
+
+
+        .prev,
+        .next {
+            cursor: pointer;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            color: white;
+        }
+
+        .prev {
+            margin-right: 10px;
+        }
+
+        .next {
+            margin-left: 640px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .details-images {
+            background-color: black;
+        }
+
+        .details-container h4 {
+            margin: 10px;
+            margin-left: 130px;
+        }
+
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+            margin-left: 130px;
+            color: rgba(0, 0, 0, .65);
+        }
+
+        .details-content {
+            width: 700px;
+            margin: 20px 0px;
+            margin-left: 150px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .details-information {
+            width: 700px;
+            margin: 20px 150px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .details-information h4 {
+            margin-left: 25px;
+        }
+
+        .details-content h4 {
+            margin-left: 0px;
+        }
+
+        .details-information table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px;
+        }
+
+        .details-information tr {
+            border: none;
+        }
+
+        .details-information td {
+            padding: 10px;
+            text-align: left;
+            color: #000;
+        }
+
+        .details-information tr:nth-child(even) {
+            margin-bottom: 20px;
+        }
+
+        /* Style the text in even rows for better visibility */
+        .details-information tr:nth-child(even) td {
+            color: rgb(105, 118, 132);
+        }
+
+        .details-information hr {
+            border: 1px solid #E0E0E0;
+            background-color: white;
+            margin-left: 25px;
+        }
+
+
+        .details-wrapper {
+            display: flex;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+
+        /* Custom styles for details-agent */
+        .custom-details-agent {
+            width: 30%;
+            height: 30%;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 50px 0px 50px;
+        }
+
+        .agent-flex {
+            display: flex;
+        }
+
+        .agent-flex p {
+            margin: 15px;
+        }
+
+        .details-agent button {
+            margin-top: 15px;
+        }
+
+        .whatsapp-button {
+            margin-top: 15px;
+            background-color: #5cb85c;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #4cae4c;
+        }
+
+        .email-button,.whatsapp-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .email-button {
+            margin-top: 15px;
+            background-color:#ff3b3b;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            width: 91%;
+        }
+
+        .email-button:hover {
+            background-color: #b02a2a;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+
+            <div class="header-user">
+                <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+                <!-- Dropdown container -->
+                <div class="dropdown">
+                    <div class="padding-account">
+                        <h3>Login or Sign Up</h3>
+                    </div>
+                    <!-- Dropdown content -->
+                    <div class="dropdown-content">
+                        <a href="/login_account">Login</a>
+                        <a href="/register_account">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <nav>
+            <a href="/">Buy</a>
+            <a href="/">Rent</a>
+            <a href="/">Compare & Analysis</a>
+            <a href="/">Find Agent</a>
+            <a href="/">Help & Support</a>
+        </nav>
+        <hr>
+
+
+        <div class="nav-place">
+            <p><a href="/">Home</a> > <a href='/property_list_buy'>Buy</a></p>
+        </div>
+    </header>
+
+    {% for property in property_details %}
+    <div class="details-images">
+        <div class="property-images">
+            <div class="image-container">
+                <div class="image-navigation">
+                    <span class="prev"
+                        onclick="changeImage(-1, this.closest('.property-images')); event.stopPropagation();">&#10094;</span>
+                    <span class="next"
+                        onclick="changeImage(1, this.closest('.property-images')); event.stopPropagation();">&#10095;</span>
+                </div>
+                {% for image in property.propertyImages %}
+                <img alt="Property Image" src="{{ url_for('static', filename=image) }}" class="property-image"
+                    style="width:700px; height:450px;">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="details-introduction">
+        <div class="details-header">
+            <h2>{{property.propertyTitle}}</h2>
+            <h2 style="margin-right: 40px;">{{property.propertyStatus}} RM{{property.propertyPrice}}</h2>
+        </div>
+        <p>{{property.propertyAddress}}</p>
+    </div>
+    <hr>
+    <div class="details-container">
+
+
+        <div class="details-wrapper">
+            <div class="details-content custom-details-content">
+                <h4>Details & Features</h4>
+                <hr>
+                <p>{{property.propertyAddress}}</p>
+                <p>*****Property For {{property.propertyStatus}}*****</p>
+                <p style="margin-bottom: 0px;">---Information---</p>
+                <p id="propertyInformation" style="margin-top: 0px; color: rgb(105, 118, 132);">
+                    {{property.propertyInformation}}</p>
+                <p>===Kindly contact/whatsappp {{property.agentName}} for more information===</p>
+            </div>
+
+            <div class="details-agent custom-details-agent" data-agent-name="{{property.agentName}}"
+                data-agent-contact="{{property.agentContact}}" data-agent-email="{{property.agentEmail}}">
+                <p style="color: #758AC1; margin-left: 0px;">Contact Agent</p>
+                <hr>
+                <div class="agent-flex">
+                    <img alt="Agent Image" src="{{ url_for('static', filename=property.agentImage) }}"
+                        class="agent-image" style="width: 50px; height: 50px; border-radius: 20px;">
+                    <p><b style="color: #758AC1;">{{property.agentName}}</b> <i
+                            style="color:rgb(105, 118, 132);">@{{property.agentName}}</i></p>
+                </div>
+                <button id="whatsapp-button" class="whatsapp-button">
+                    <img alt="Agent Image" src="{{ url_for('static', filename='whatsapps.png') }}" class="agent-image"
+                        style="width: 20px; height: 20px; border-radius: 20px;">&nbsp;Open in WhatsApp</button>
+                        <a href="mailto:{{property.agentEmail}}" class="email-button">
+                            <i class="fa fa-envelope" style="font-size: 18px;"></i>&nbsp; Email
+                        </a>
+                        
+
+                </button>
+            </div>
+        </div>
+
+
+
+        <div class="details-information">
+            <h4>Property Details</h4>
+            <hr>
+            <table>
+                <tr>
+                    <td>Property Type:</td>
+                    <td>Land Title:</td>
+                </tr>
+                <tr>
+                    <td>{{property.propertyType}}</td>
+                    <td>{{property.landTitle}}</td>
+                </tr>
+                <tr>
+                    <td>Property Title Type:</td>
+                    <td>Tenure:</td>
+                </tr>
+                <tr>
+                    <td>{{property.typeTitle}}</td>
+                    <td>{{property.houseHold}}</td>
+                </tr>
+                <tr>
+                    <td>Built-up Size:</td>
+                    <td>Furnishing:</td>
+                </tr>
+                <tr>
+                    <td>{{property.builtInSize}}</td>
+                    <td>{{property.furniture}}</td>
+                </tr>
+                <tr>
+                    <td>Posted Date:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td id="postedDate">{{ property.postedDate }}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        {% endfor %}
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize the property images and their indexes
+            var properties = document.querySelectorAll(".property-images");
+            properties.forEach(function (property) {
+                property.dataset.imageIndex = 0;
+                showPropertyImages(property); // Display initial property images
+            });
+
+            // Add line breaks to property information
+            var propertyInformation = document.getElementById("propertyInformation");
+            if (propertyInformation) {
+                propertyInformation.innerHTML = insertLineBreaks(propertyInformation.innerHTML);
+            }
+
+            // Format and display the posted date
+            var postedDateElement = document.getElementById("postedDate");
+            if (postedDateElement) {
+                var postedDate = new Date(postedDateElement.innerText);
+                var formattedDate = postedDate.toLocaleDateString(); // Format as a localized date string
+
+                postedDateElement.innerText = formattedDate; // Update the content with the formatted date
+            }
+
+            var detailsAgent = document.querySelector(".details-agent");
+            var agentName = detailsAgent.getAttribute("data-agent-name");
+            var agentContact = detailsAgent.getAttribute("data-agent-contact");
+            var message = 'Hi ' + agentName + ' , I am Interested to find out more about your listing I found on metroview';
+            // Handle the click event on the WhatsApp button
+            var whatsappButton = document.getElementById('whatsapp-button');
+            whatsappButton.addEventListener('click', function () {
+                // Construct the WhatsApp URL with the dynamic contact number
+                var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + agentContact + '&text=' + encodeURIComponent(message);
+
+                // Open WhatsApp in a new tab/window
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+
+        function changeImage(n, property) {
+            // Retrieve the current image index for the property
+            var imageIndex = parseInt(property.dataset.imageIndex);
+            imageIndex += n;
+
+            var images = property.querySelectorAll(".property-image");
+            if (imageIndex >= images.length) {
+                imageIndex = 0;
+            } else if (imageIndex < 0) {
+                imageIndex = images.length - 1;
+            }
+
+            // Update the property's data attribute with the new image index
+            property.dataset.imageIndex = imageIndex;
+            showPropertyImages(property);
+        }
+
+        function showPropertyImages(property) {
+            var images = property.querySelectorAll(".property-image");
+            var imageIndex = parseInt(property.dataset.imageIndex);
+
+            // Hide all images
+            images.forEach(function (image) {
+                image.style.display = "none";
+            });
+
+            // Display the current image
+            images[imageIndex].style.display = "block";
+        }
+
+        function insertLineBreaks(text) {
+            return text.replace(/-/g, "<br>-");
+        }
+
+
+    </script>
+</body>
+
+</html>

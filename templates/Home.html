@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Register Customer Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .home-search-machine {
+            background-image: url('/static/home/home-property-1.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            width: 100%;
+            height: 500px;
+            animation: slide 15s infinite;
+        }
+
+        @keyframes slide {
+            0% {
+                background-image: url('/static/home/home-property-1.jpg');
+            }
+
+            25% {
+                background-image: url('/static/home/home-property-2.jpg');
+            }
+
+            50% {
+                background-image: url('/static/home/home-property-3.jpg');
+            }
+
+            75% {
+                background-image: url('/static/home/home-property-4.jpg')
+            }
+
+            100% {
+                background-image: url('/static/home/home-property-1.jpg');
+            }
+        }
+
+        .search-machine {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            padding-left: 100px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-top: 330px;
+        }
+
+        .search-machine select {
+            width: 200px;
+            height: 61px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .home-state {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        .search-machine input {
+            width: 50%;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .search-machine button {
+            color: black;
+            background-color: transparent;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            right: 240px;
+        }
+
+        .home-property-content h3 {
+            text-align: center;
+        }
+
+        .flex-popular {
+            display: flex;
+            justify-content: center;
+        }
+
+        .popular {
+            margin-left: 15px;
+            position: relative;
+        }
+
+        .popular h4 {
+            position: absolute;
+            bottom: 220px;
+            left: 10px;
+            background-color: transparent;
+            color: white;
+            margin: 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+            style="width:180px;height:100px;">
+
+        <div class="header-user">
+            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/">Compare & Analysis</a>
+        <a href="/">Find Agent</a>
+        <a href="/">Help & Support</a>
+    </nav>
+
+    <div class="home-search-machine">
+        <div class="search-machine">
+            <select class="home-state" name="home-state">
+                <option value="JHR">Johor</option>
+                <option value="KDH">Kedah</option>
+                <option value="KTN">Kelantan</option>
+                <option value="MLK">Melaka</option>
+                <option value="NSN">Negeri Sembilan</option>
+                <option value="PHG">Pahang</option>
+                <option value="PNG">Penang</option>
+                <option value="PRK">Perak</option>
+                <option value="PLS">Perlis</option>
+                <option value="SBH">Sabah</option>
+                <option value="SWK">Sarawak</option>
+                <option value="SGR">Selangor</option>
+                <option value="TRG">Terengganu</option>
+                <option value="KUL">Kuala Lumpur</option>
+            </select>
+
+            <select id="property-type">
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="condo">Condo</option>
+                <option value="townhouse">Townhouse</option>
+                <option value="duplex">Duplex</option>
+                <option value="villa">Villa</option>
+                <option value="cottage">Cottage</option>
+                <option value="bungalow">Bungalow</option>
+                <option value="commercial">Commercial</option>
+                <option value="land">Land</option>
+                <option value="other">Other</option>
+            </select>
+
+            <input type="text" name="property-content" class="home-search-text"
+                placeholder="Insert location, Property Name or Neighborhoods">
+
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+
+    <div class="home-property-content">
+        <h3>Popular Neighborhoods</h3>
+        <div class="flex-popular">
+            <div class="popular">
+                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/home/popular-1.jpeg')}}"
+                    style="width:450px;height:250px;">
+                <h4>Setapak</h4>
+            </div>
+            <div class="popular">
+                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/home/popular-2.jpg')}}"
+                    style="width:450px;height:250px;">
+                <h4>Cheras</h4>
+
+            </div>
+            <div class="popular">
+                <img alt="Real Estate Popular" src="{{ url_for('static', filename='home/popular-3.jpeg')}}"
+                    style="width:450px;height:250px;">
+                <h4>Kuala Lumpur</h4>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .verification-container {
+            max-width: 500px;
+            padding: 20px;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #EBECF0;
+        }
+
+        .verification-container img {
+            margin: 0 auto;
+            width: 300px;
+            height: 250px;
+        }
+
+        .verification-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .verification-container p {
+            text-align: left;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .verify-form-container {
+            width: 100%;
+        }
+
+        .verification-container input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #E0E0E0;
+            border-radius: 5px;
+            background-color: #D9D9D9;
+        }
+
+        button.button-send {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e5877c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button.button-send:hover {
+            background-color: #E5957C;
+        }
+
+        button.button-resend {
+            background: transparent;
+            color: #777777;
+            width: -10%;
+            font-size: 12px;
+            text-decoration: underline;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+            style="width:180px;height:100px;">
+
+        <div class="header-user">
+            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+            <!-- Dropdown container -->
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <!-- Dropdown content -->
+                <div class="dropdown-content">
+                    <a href="#">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/">Buy</a>
+        <a href="/">Rent</a>
+        <a href="/">Compare & Analysis</a>
+        <a href="/">Find Agent</a>
+        <a href="/">Help & Support</a>
+    </nav>
+
+    <div class="verification-container">
+        <img alt="Real Estate Register" src="{{ url_for('static', filename='email-verification.jpg')}}"
+            style="width:300px;height:250px;">
+        <h3>Verify your email</h3>
+        <div class="verify-form-container">
+            <form action="/verify" method="post">
+                <p style="text-align: left; color:red; font-size:14px;">{{msg}}</p>
+                <input type="text" name="register-verification" placeholder="Enter Your verification Code">
+                <button type="submit" class="button-send">Enter</button>
+            </form>
+        </div>
+        <form action="/resend_code" method="post">
+            <p id="countdown-message">
+                <span id="countdown-info">Verification Code is valid for only</span>
+                <span id="countdown">60</span><span id="countdown-seconds"> seconds</span>
+                <button type="submit" class="button-resend" id="resendButton">Resend Code</button>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        var countdown = 5; // 60 seconds for 1 minute
+        var countdownElement = document.getElementById('countdown');
+        var countdownInfoElement = document.getElementById('countdown-info');
+        var countdownSeconds = document.getElementById('countdown-seconds');
+        var countdownMessage = document.getElementById('countdown-message');
+        var resendButton = document.getElementById('resendButton');
+
+        // Function to update the countdown display
+        function updateCountdown() {
+            countdownElement.textContent = countdown;
+        }
+
+        // Function to start the countdown
+        function startCountdown() {
+            countdownMessage.style.display = 'block';
+            updateCountdown();
+
+            var countdownInterval = setInterval(function () {
+                countdown--;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.style.display = 'none'; // Hide the countdown
+                    countdownSeconds.style.display = 'none'; // Hide the word "seconds"
+                    resendButton.removeAttribute('disabled'); // Remove the 'disabled' attribute to enable the button
+                    resendButton.style.color = 'blue';
+                    resendButton.style.cursor = 'pointer';
+                } else {
+                    updateCountdown();
+                }
+            }, 1000);
+        }
+
+        // Function to resend the verification code
+        function resendVerificationCode() {
+
+            // Reset the countdown and UI
+            countdown = 5;
+            countdownElement.style.display = 'inline'; // Display countdown again
+            countdownSeconds.style.display = 'inline';
+            resendButton.style.color = '#777777';
+            resendButton.style.cursor='context-menu';
+            resendButton.setAttribute('enabled', 'disabled'); // Disable the button
+            startCountdown();
+        }
+
+        // Start the countdown when the page loads
+        startCountdown();
+
+        // Attach the resendVerificationCode function to the button click
+        resendButton.addEventListener('click', function () {
+            resendVerificationCode();
+        });
+    </script>
+</body>
+
+
+</html>

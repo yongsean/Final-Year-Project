@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .container-sign-in {
+            width: 750px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #dddddd;
+            height: 510px;
+        }
+
+        .container-sign-in h2,
+        p {
+            text-align: center;
+            margin: 15px;
+        }
+
+        .register-account-link,
+        .forgot-password {
+            color: #444444;
+        }
+
+        .container-sign-in input,
+        button {
+            width: 90%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 15px;
+        }
+
+        .container-sign-in button {
+            background-color: #507BEA;
+            width: 100% !important;
+            cursor: pointer;
+        }
+
+
+
+        .login-left-side {
+            margin: 25px;
+        }
+
+        .login-side {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .login-left-side,
+        .login-right-side {
+            width: 45%;
+        }
+
+        .login-right-side {
+            height: 100%;
+        }
+
+        .forgot-password {
+            text-align: center;
+            display: block;
+        }
+
+        #toggle-password-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        #toggle-password-button .fa-eye {
+            transition: color 0.3s;
+        }
+
+        /* Style for the eye icon on hover */
+        #toggle-password-button:hover .fa-eye {
+            color: #0056b3;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+            style="width:180px;height:100px;">
+
+        <div class="header-user">
+            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/">Buy</a>
+        <a href="/">Rent</a>
+        <a href="/">Compare & Analysis</a>
+        <a href="/">Find Agent</a>
+        <a href="/">Help & Support</a>
+    </nav>
+
+    <div class="container-sign-in">
+        <div class="login-side">
+            <div class="login-left-side">
+                <h2>Sign IN</h2>
+                <p>Sign in as member to view perform your action</p>
+                <form action="/login_member" method="post">
+                    <input type="email" name="sign-in-email" placeholder="Enter Your Email">
+                    <input type="password" name="sign-in-password" placeholder="Enter Your Password" id="password-input">
+                    <span id="toggle-password-button" style="position: absolute;right: 785px; top:62%;transform: translateY(-50%); cursor: pointer;">
+                        <i id="password-icon" class="fas fa-eye-slash"></i>
+                    </span>
+                    <p style="color:red; text-align: left;">{{error}}</p>
+                    <button type="submit" name="sign-in-button">Sign In</button>
+                </form>
+                <a href="#" class="forgot-password">Forgot Your Password?</a>
+                <p>Don't Have Account? <a href="/register_account" class="register-account-link">Click Here</a></p>
+            </div>
+
+            <div class="login-right-side">
+                <img alt="Real Estate Register" src="{{ url_for('static', filename='property-login.png')}}"
+                    style="width:360px;height:510px;">
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordInput = document.getElementById("password-input");
+        const passwordIcon = document.getElementById("password-icon");
+        const toggleButton = document.getElementById("toggle-password-button");
+
+        toggleButton.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";  // Show password
+                passwordIcon.classList.remove("fa-eye-slash");
+                passwordIcon.classList.add("fa-eye");  // Change icon to open eye
+            } else {
+                passwordInput.type = "password";  // Hide password
+                passwordIcon.classList.remove("fa-eye");
+                passwordIcon.classList.add("fa-eye-slash");  // Change icon to closed eye
+            }
+        });
+    });
+</script>
+
+</html>

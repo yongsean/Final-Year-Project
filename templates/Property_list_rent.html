@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Register Customer Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            margin-bottom: 20px;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background: white;
+            ;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+            background-color: white;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            background-color: white;
+            ;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            background-color: white;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            background-color: white;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border: 1px solid #E0E0E0;
+            background-color: white;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .home-search-machine {
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            width: 100%;
+            animation: slide 15s infinite;
+        }
+
+        .search-machine {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-machine select {
+            width: 200px;
+            height: 61px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .search-machine input {
+            width: 90%;
+            height: 40px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .search-machine button {
+            color: black;
+            background-color: transparent;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+        }
+
+        .property-filter,
+        .property-buy-result {
+            margin-left: 100px;
+        }
+
+        .property-filter {
+            display: flex;
+            align-items: center;
+            margin: 15px;
+            background-color: white;
+            margin-left: 200px;
+            max-width: 1100px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .property-filter select {
+            width: 230px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+            background-color: transparent;
+        }
+
+        .property-filter select:first-child {
+            margin-right: 20px;
+        }
+
+        .property-filter select:last-child {
+            margin-right: 0;
+        }
+
+        .property-filter select:focus {
+            outline: none;
+            /* Remove the outline when the select element is focused */
+        }
+
+        .property-button-filter i {
+            font-size: 25px;
+        }
+
+        .property-button-filter {
+            font-size: 16px;
+            background-color: #1f98af;
+            color: white;
+            margin-left: auto;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .property-button-filter:hover {
+            background-color: #337ab7;
+        }
+
+        .property {
+            background-color: white;
+            margin-top: 10px;
+            position: relative;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .property:hover {
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .property-list {
+            background-color: #f2f2f2;
+        }
+
+        .property-list-container {
+            max-width: 800px;
+            margin-left: 100px;
+            ;
+        }
+
+        .property-images {
+            position: relative;
+        }
+
+        .nav-place {
+            background: white;
+            margin-left: 10px;
+        }
+
+        .nav-place a {
+            text-decoration: none;
+            color: grey
+        }
+
+        .image-navigation {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            padding: 16px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+        }
+
+        .prev {
+            margin: 0 10px;
+        }
+
+        .next {
+            margin-left: 580px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .property h3 {
+            color: #1f98af;
+        }
+
+        .property-details-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .property-details {
+            display: flex;
+        }
+
+        .property-details-row2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .property-details-row .property-details,
+        .property-details-row2 .property-details {
+            flex-basis: 250px;
+        }
+
+        /* Column 1 CSS */
+        .property-buy-result {
+            width: 250px;
+        }
+
+        .agent-container {
+            display: flex;
+            background-color: #1f98af;
+            padding: 10px;
+        }
+
+        .property h2,
+        h3,
+        .property-details-row,
+        .property-details-row2 {
+            margin: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+
+            <div class="header-user">
+                <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+                <!-- Dropdown container -->
+                <div class="dropdown">
+                    <div class="padding-account">
+                        <h3>Login or Sign Up</h3>
+                    </div>
+                    <!-- Dropdown content -->
+                    <div class="dropdown-content">
+                        <a href="/login_account">Login</a>
+                        <a href="/register_account">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <nav>
+            <a href="/">Buy</a>
+            <a href="/">Rent</a>
+            <a href="/">Compare & Analysis</a>
+            <a href="/">Find Agent</a>
+            <a href="/">Help & Support</a>
+        </nav>
+        <hr>
+
+
+        <div class="nav-place">
+            <p><a href="/">Home</a> > Buy</p>
+        </div>
+        <div class="home-search-machine">
+            <div class="search-machine">
+                <select class="home-state" name="home-state">
+                    <option value="JHR">Johor</option>
+                    <option value="KDH">Kedah</option>
+                    <option value="KTN">Kelantan</option>
+                    <option value="MLK">Melaka</option>
+                    <option value="NSN">Negeri Sembilan</option>
+                    <option value="PHG">Pahang</option>
+                    <option value="PNG">Penang</option>
+                    <option value="PRK">Perak</option>
+                    <option value="PLS">Perlis</option>
+                    <option value="SBH">Sabah</option>
+                    <option value="SWK">Sarawak</option>
+                    <option value="SGR">Selangor</option>
+                    <option value="TRG">Terengganu</option>
+                    <option value="KUL">Kuala Lumpur</option>
+                </select>
+
+                <select id="property-type">
+                    <option value="house">House</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="condo">Condo</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="duplex">Duplex</option>
+                    <option value="villa">Villa</option>
+                    <option value="cottage">Cottage</option>
+                    <option value="bungalow">Bungalow</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="land">Land</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <input type="text" name="property-content" class="home-search-text"
+                    placeholder="Insert location, Property Name or Neighborhoods">
+
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="property-list">
+
+
+        <div class="property-filter">
+            <select class="select-min-price" name="select-min-price">
+                <option selected>Min Price(RM)</option>
+                <option value="100000">100k</option>
+                <option value="200000">200k</option>
+                <option value="300000">300k</option>
+                <option value="400000">400k</option>
+                <option value="500000">500k</option>
+                <option value="600000">600k</option>
+                <option value="700000">700k</option>
+                <option value="800000">800k</option>
+                <option value="900000">900k</option>
+            </select>
+
+            <select class="select-max-price" name="select-max-price">
+                <option selected>Max Price(RM)</option>
+                <option value="100000">100k</option>
+                <option value="200000">200k</option>
+                <option value="300000">300k</option>
+                <option value="400000">400k</option>
+                <option value="500000">500k</option>
+                <option value="600000">600k</option>
+                <option value="700000">700k</option>
+                <option value="800000">800k</option>
+                <option value="900000">900k</option>
+            </select>
+
+            <select class="property-size" name="property-size">
+                <option selected>Built-up Size(sq.ft.)</option>
+                <option value="500">0-500</option>
+                <option value="1000">501-1000</option>
+                <option value="1500">1001-1500</option>
+                <option value="2000">1501-2000</option>
+                <option value="2500">2001-2500</option>
+                <option value="30000">2501-3000</option>
+            </select>
+
+            <select class="property-bedroom" name="property-bedroom">
+                <option selected>Bedroom</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+            </select>
+
+            <button type="submit" class="property-button-filter">Filter <i class="fa fa-filter"></i></button>
+        </div>
+
+        <div class="property-list-container">
+            <div class="property-buy-result">
+                <p>Showing {{ property_data|length }} properties</p>
+            </div>
+
+            <div class="property-list-container">
+                {% for property in property_data %}
+                <div class="property" onclick="viewPropertyDetails('{{ property.propertyID }}')"
+                    data-property-id="{{ property.propertyID }}">
+                    <div class="agent-container">
+                        <img alt="Agent Image" src="{{ url_for('static', filename=property.agentImage) }}"
+                            class="agent-image" style="width: 50px; height: 50px; border-radius: 20px;">
+                        &nbsp<p><b>{{property.agentName}}</b></p>
+                    </div>
+                    <div class="property-images">
+                        <div class="image-container">
+                            {% for image in property.propertyImages %}
+                            <img alt="Property Image" src="{{ url_for('static', filename=image) }}"
+                                class="property-image" style="width:700px; height:350px;">
+                            {% endfor %}
+                        </div>
+                        <div class="image-navigation">
+                            <div class="image-navigation">
+                                <span class="prev" onclick="changeImage(-1, this.closest('.property')); event.stopPropagation();">&#10094;</span>
+                                <span class="next" onclick="changeImage(1, this.closest('.property')); event.stopPropagation();">&#10095;</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <h2>{{ property.propertyTitle }}</h2>
+                    <h3>For Sales: RM{{ property.propertyPrice }} </h3>
+                    <div class="property-details-row">
+                        <div class="property-details">
+                            <img alt="Property Image"
+                                src="{{ url_for('static', filename='/property/icons-house-hold.png') }}"
+                                class="property-details-icon" style="width: 40px;">&nbsp
+                            <p>{{property.houseHold}}</p>
+                        </div>
+                        <div class="property-details">
+                            <img alt="Property Image"
+                                src="{{ url_for('static', filename='/property/icons-house.png') }}"
+                                class="property-details-icon" style="width: 40px;">&nbsp
+                            <p>{{property.propertyType}}</p>
+                        </div>
+                        <div class="property-details">
+                            <img alt="Property Image"
+                                src="{{ url_for('static', filename='/property/icons-built-in-size.png') }}"
+                                class="property-details-icon" style="width: 40px;">&nbsp
+                            <p>{{property.builtInSize}} SQ.FT</p>
+                        </div>
+                    </div>
+
+                    <div class="property-details-row2">
+                        <div class="property-details">
+                            <img alt="Property Image"
+                                src="{{ url_for('static', filename='/property/icons-furniture.png') }}"
+                                class="property-details-icon" style="width: 40px;">&nbsp
+                            <p>{{property.furniture}} Furniture</p>
+                        </div>
+
+                        <div class="property-details">
+                            <img alt="Property Image"
+                                src="{{ url_for('static', filename='/property/icons-bedroom.png') }}"
+                                class="property-details-icon" style="width: 40px;">&nbsp
+                            <p>{{property.bedroom}} Bedrooms</p>
+                        </div>
+
+                        <div class="property-details">
+                            <img alt="Property Image"
+                                src="{{ url_for('static', filename='/property/icons-bathroom.png') }}"
+                                class="property-details-icon" style="width: 40px;">&nbsp
+                            <p> {{property.bathroom}} Bathroom</p>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var propertyImageMap = {};
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize the property images and their indexes
+            var properties = document.querySelectorAll(".property");
+            properties.forEach(function (property) {
+                property.dataset.imageIndex = 0;
+                showPropertyImages(property); // Display initial property images
+            });
+        });
+
+        function changeImage(n, property) {
+            // Retrieve the current image index for the property
+            var imageIndex = parseInt(property.dataset.imageIndex);
+            imageIndex += n;
+
+            var images = property.querySelectorAll(".property-image");
+            if (imageIndex >= images.length) {
+                imageIndex = 0;
+            } else if (imageIndex < 0) {
+                imageIndex = images.length - 1;
+            }
+
+            // Update the property's data attribute with the new image index
+            property.dataset.imageIndex = imageIndex;
+            showPropertyImages(property);
+        }
+
+        function showPropertyImages(property) {
+            var images = property.querySelectorAll(".property-image");
+            var imageIndex = parseInt(property.dataset.imageIndex);
+
+            // Hide all images
+            images.forEach(function (image) {
+                image.style.display = "none";
+            });
+
+            // Display the current image
+            images[imageIndex].style.display = "block";
+        }
+
+        function viewPropertyDetails(propertyID) {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/property-details';
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'propertyID';
+            input.value = propertyID;
+
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+
+</html>

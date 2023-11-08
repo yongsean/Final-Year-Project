@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .register-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #D9D9D9;
+            height: 510px;
+        }
+
+        .register-side {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .register-left-side,
+        .register-right-side {
+            width: 45%;
+        }
+
+        .register-right-side {
+            height: 100%;
+        }
+
+        .register-line-name,
+        .register-line-email,
+        .register-line-phone,
+        .register-line-password {
+            margin-bottom: 10px;
+        }
+
+        .register-left-side input,
+        button {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .register-left-side button {
+            background-color: #CB4004;
+            color: white;
+            font-weight: bold;
+        }
+
+        .register-container h2,
+        p {
+            text-align: center;
+        }
+
+        .register-container p {
+            font-size: 13px;
+        }
+
+        .register-left-side {
+            margin-left: 15px;
+        }
+
+        .register-left-side button {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+            style="width:180px;height:100px;">
+
+        <div class="header-user">
+            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+            <!-- Dropdown container -->
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <!-- Dropdown content -->
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/">Buy</a>
+        <a href="/">Rent</a>
+        <a href="/">Compare & Analysis</a>
+        <a href="/">Find Agent</a>
+        <a href="/">Help & Support</a>
+    </nav>
+
+    <div class="register-container">
+        <form action="/register" method="post">
+            <div class="register-side">
+                <div class="register-left-side">
+                    <h2>Sign Up</h2>
+                    <p>Sign up as member to make own easy in property</p>
+                    <div class="register-line-name">
+                        <label for="register-first-name">Full Name</label>
+                        <input type="text" name="register-full-name" placeholder="Full Name">
+                    </div>
+                    <div class="register-line-email">
+                        <label for="register-email">Email</label>
+                        <input type="email" name="register-email" placeholder="Email">
+                    </div>
+                    <div class="register-line-phone">
+                        <label for="register-phone">Phone Number</label>
+                        <input type="text" name="register-phone" placeholder="Phone Number">
+                    </div>
+                    <div class="register-line-password">
+                        <label for="register-password">Password</label>
+                        <input type="password" name="register-password" placeholder="Password">
+                    </div>
+                    <button type="submit">Sign Up</button>
+                    <p>Already Have An Account? <a href="#">Click Here</a></p>
+                </div>
+                <div class="register-right-side">
+                    <img alt="Real Estate Register" src="{{ url_for('static', filename='property-register.png')}}"
+                        style="width:360px;height:510px;">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
