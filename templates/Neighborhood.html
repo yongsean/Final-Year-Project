@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            /* Change back to space-between */
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            flex: 1;
+            /* Allow items to take equal width and shrink on smaller screens */
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+            /* Add margin between items */
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .neighborhood-container-search {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #a8ddec;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            /* Set a maximum width to prevent stretching on larger screens */
+            width: 90%;
+            /* Set a width percentage for smaller screens */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .neighborhood-container-search h2 {
+            color: #fff;
+            text-align: center;
+        }
+
+        .neighborhood-container-search form {
+            display: flex;
+            flex-direction: column;
+            /* Change to column layout for small screens */
+            align-items: center;
+        }
+
+        .neighborhood-container-search input[type="text"] {
+            flex: 1;
+            padding: 15px 40px 15px 15px;
+            /* Adjust padding to accommodate the search icon */
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 90%;
+            margin-bottom: 10px;
+            position: relative;
+            /* Position relative for absolute positioning of the icon */
+        }
+
+        .neighborhood-container-search button {
+            padding: 10px;
+            background-color: transparent;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            position: absolute;
+            right: 375px;
+            /* Adjust the right position to align with the input field */
+            top: 47%;
+            /* Center the icon vertically */
+            transform: translateY(-50%);
+            /* Adjust for vertical centering */
+        }
+
+        .neighborhood-container-search input[type="text"]:focus {
+            outline: none;
+        }
+
+        .popular-container {
+            background-color: #a8e1ec;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .popular-container h2 {
+            margin-top: 20px;
+            color: #4d4d4d;
+            text-align: center;
+        }
+
+        .container-content {
+            margin: auto;
+            width: 600px;
+            word-spacing: 2px;
+            line-height: 1.6;
+            color: #666;
+            text-align: center;
+        }
+
+        .flex-popular {
+            display: flex;
+            justify-content: center;
+        }
+
+        .popular {
+            margin-left: 15px;
+            position: relative;
+        }
+
+        .popular h4 {
+            text-align: center;
+            background-color: transparent;
+            color: #666;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .popular img {
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .popular:hover img {
+            transform: scale(1.1);
+            /* Adjust the scaling factor as needed */
+        }
+
+        ul#similar-neighborhoods {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul#similar-neighborhoods li {
+            display: inline-block;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        ul#similar-neighborhoods li a {
+            color: black;
+            text-decoration: none;
+        }
+
+        #similar-neighborhoods li:hover {
+            background-color: #f2f2f2;
+            border-color: #f2f2f2;
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                /* Change to a column layout for small screens */
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                /* Full width for small screens */
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .neighborhood-container-search input[type="text"],
+            .neighborhood-container-search button {
+                width: 100%;
+            }
+
+            .neighborhood-container-search input[type="text"] {
+                padding: 15px;
+            }
+
+            .neighborhood-container-search button {
+                position: relative;
+                bottom: 40px;
+                left: 210px;
+                margin-top: 10px;
+            }
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Disable submit button by default
+            $('#search-button').prop('disabled', true);
+    
+            // Event listener for input changes
+            $('#neighborhood-input').on('input', function () {
+                // Get the user input
+                var userInput = $(this).val().toLowerCase();
+    
+                // Create form data
+                var formData = new FormData();
+                formData.append('neighborhood-search', userInput);
+    
+                // Send an AJAX request to the backend to fetch similar neighborhoods
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/find_similar_neighborhoods',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        // Update the UI with the list of similar neighborhoods
+                        $('#similar-neighborhoods').empty();
+                        $.each(response, function (index, neighborhood) {
+                            $('#similar-neighborhoods').append('<li>' + neighborhood.neighborhoodName + '</li>');
+                        });
+    
+                        // Event listener for suggested neighborhoods
+                        $('#similar-neighborhoods li').on('click', function () {
+                            // Highlight the selected suggestion
+                            $('#similar-neighborhoods li').removeClass('selected');
+                            $(this).addClass('selected');
+    
+                            // Update the input field with the selected neighborhood
+                            $('#neighborhood-input').val($(this).text());
+    
+                            // Enable the submit button
+                            $('#search-button').prop('disabled', false);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="header-home">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
+
+        <div class="header-user">
+            {% if 'user_id' in session %}
+            <div class="dropdown">
+                <div class="exists-account">
+                    {% if 'user_profile_picture' in session %}
+                    <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                        alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                    <div class="default-profile-icon">
+                        <i class="fa fa-user" style="font-size: 42px;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="dropdown-content">
+                    <a href="/user_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
+    </nav>
+
+    <div class="neighborhood-container-search">
+        <h2>Neighborhood In Malaysia</h2>
+        <form action="/neighborhood_result" method="post">
+            <input type="text" id="neighborhood-input" name="neighborhood-search" placeholder="Search Neighborhood">
+            <button type="submit" id="search-button"><i class="fa fa-search"></i></button>
+        </form>
+
+        <!-- Display the list of similar neighborhoods dynamically -->
+        <ul id="similar-neighborhoods"></ul>
+    </div>
+
+    <div class="popular-container">
+        <h2>Popular Neighborhood</h2>
+        <div class="container-content">
+            <p>
+                Delve into genuine reviews and facts about Malaysia's popular neighborhoods.
+                Featuring captivating photos, insightful analytics, and more to
+                enhance your understanding of these vibrant locales.</p>
+        </div>
+
+        <div class="flex-popular">
+            <div class="popular">
+                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/setapak-popular.jpg')}}"
+                    style="width:300px;height:300px;">
+                <h4>Setapak</h4>
+            </div>
+            <div class="popular">
+                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/bukit-bintang-popular.jpg')}}"
+                    style="width:300px;height:300px;">
+                <h4>Bukit Bintang</h4>
+            </div>
+            <div class="popular">
+                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/petalingJaya-popular.jpg')}}"
+                    style="width:300px;height:300px;">
+                <h4>Petaling Jaya</h4>
+            </div>
+            <div class="popular">
+                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/cheras-popular.jpeg')}}"
+                    style="width:300px;height:300px;">
+                <h4>Cheras</h4>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

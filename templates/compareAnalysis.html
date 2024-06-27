@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Compare Analysis</title>
+    <style>
+        @media only screen and (max-width: 600px) {
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                /* Change to a column layout for small screens */
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                /* Full width for small screens */
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            /* Change back to space-between */
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            flex: 1;
+            /* Allow items to take equal width and shrink on smaller screens */
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+            /* Add margin between items */
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .nav-place {
+            background: white;
+            margin-left: 10px;
+            height: 20px;
+        }
+
+        .nav-place a {
+            text-decoration: none;
+            color: grey
+        }
+
+        .analysis-header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .analysis-header span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #CB4004;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .help-classs {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .help-classs .help-content {
+            width: 30%;
+            margin: 10px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .help-classs h3 {
+            font-size: 20px;
+            color: #CB4004;
+            margin-bottom: 10px;
+        }
+
+        .help-classs p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #CB4004;
+        }
+
+        .price-distribution {
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeInUp 1s ease-out;
+            width: 100%;
+            /* Update to 100% width */
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            /* Center the child elements horizontally */
+            align-items: center;
+            /* Center the child elements vertically */
+        }
+
+        /* Animation for fading in */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chart {
+            max-width: 800px;
+            max-height: 800px;
+        }
+
+        .price-filter {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .price-filter label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #CB4004;
+            /* Set label color to match your theme */
+        }
+
+        .filter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 300px;
+            /* Adjust the max-width as needed */
+        }
+
+        .neighborhood-search {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #a09e9e;
+            /* Set border color to match your theme */
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .selected-neighborhoods {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .selected-neighborhoods {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .selected-neighborhood {
+            margin: 0 10px 10px 0;
+            padding: 8px 16px;
+            background-color: #CB4004;
+            /* Set background color to match your theme */
+            color: white;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .selected-neighborhood:hover {
+            background-color: #A22A03;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #a09e9e;
+            /* Set border color to match your theme */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        select:focus {
+            outline: none;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        button {
+            background-color: #CB4004;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #A22A03;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
+
+        <div class="header-user">
+            {% if 'user_id' in session %}
+            <div class="dropdown">
+                <div class="exists-account">
+                    {% if 'user_profile_picture' in session %}
+                    <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                        alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                    <div class="default-profile-icon">
+                        <i class="fa fa-user" style="font-size: 42px;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="dropdown-content">
+                    <a href="/user_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
+    </nav>
+
+    <hr>
+
+    <div class="nav-place">
+        <p><a href="/click_home">Home</a> > Price Distribution</p>
+    </div>
+
+    <hr>
+
+    <form method="post" action="/compare_Analysis" id="compareAnalysisForm">
+        <div class="price-filter">
+            <label for="neighborhoodFilter">Select maximum 10 neighborhood</label>
+
+            <input type="text" id="neighborhoodSearch" class="neighborhood-search" placeholder="Search neighborhoods">
+
+            <select name="neighborhoodFilter" id="neighborhoodFilter" multiple>
+            </select>
+
+            <div class="selected-neighborhoods" id="selectedNeighborhoods">
+            </div>
+
+
+            <button type="submit" onclick="submitForm()">Apply Filters</button>
+        </div>
+    </form>
+
+    <div class="price-distribution">
+        <img src="data:image/png;base64,{{ plot_data }}" alt="Comparison Plot" class="chart">
+    </div>
+
+    <div class="analysis-header">
+        <span>What We Can Help You</span>
+        <div class="help-classs">
+            <div class="help-content">
+                <i class="icon fa fa-check-circle"></i>
+                <h3>Verify Transacted Property Prices</h3>
+                <p>Check property transaction prices before making decisions; ensure informed commitment.</p>
+            </div>
+
+            <div class="help-content">
+                <i class="icon fa fa-database"></i>
+                <h3>Trusted Data Source</h3>
+                <p>Property market insights powered by an online resource.</p>
+            </div>
+
+            <div class="help-content">
+                <i class="icon fa fa-home"></i>
+                <h3>Comparable Neighborhood</h3>
+                <p>Retrieve resale transaction information for the specific location and property type you prefer.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch the list of all neighborhoods from the server
+            fetch("/get_all_neighborhoods")
+                .then(response => response.json())
+                .then(neighborhoods => {
+                    const neighborhoodSelect = document.getElementById('neighborhoodFilter');
+                    const selectedNeighborhoodsContainer = document.getElementById('selectedNeighborhoods');
+                    const neighborhoodSearchInput = document.getElementById('neighborhoodSearch');
+    
+                    neighborhoods.forEach(neighborhood => {
+                        const option = document.createElement("option");
+                        option.value = neighborhood;
+                        option.text = neighborhood;
+                        neighborhoodSelect.appendChild(option);
+                    });
+    
+                    // Handle real-time search
+                    neighborhoodSearchInput.addEventListener('input', () => {
+                        const searchValue = neighborhoodSearchInput.value.toLowerCase();
+                        const options = neighborhoodSelect.options;
+    
+                        for (const option of options) {
+                            const optionText = option.text.toLowerCase();
+                            option.style.display = optionText.includes(searchValue) ? 'block' : 'none';
+                        }
+                    });
+    
+                    // Function to update selected neighborhoods container
+                    neighborhoodSelect.addEventListener('change', () => {
+                        updateSelectedNeighborhoods();
+                    });
+    
+                    function updateSelectedNeighborhoods() {
+                        const selectedOptions = Array.from(neighborhoodSelect.selectedOptions)
+                            .map(option => option.text);
+    
+                        // Preserve the original selected neighborhoods
+                        const originalSelected = Array.from(selectedNeighborhoodsContainer.children)
+                            .map(div => div.innerText);
+    
+                        // Combine the original and new selections
+                        const combinedSelections = [...originalSelected, ...selectedOptions];
+    
+                        // Filter out duplicates
+                        const uniqueSelections = Array.from(new Set(combinedSelections));
+    
+                        selectedNeighborhoodsContainer.innerHTML = uniqueSelections.map(neigh => {
+                            return `<div class="selected-neighborhood" onclick="removeNeighborhoodFromList(this)">${neigh}</div>`;
+                        }).join('');
+    
+                        // Enable select if the maximum limit is not reached
+                        neighborhoodSelect.disabled = uniqueSelections.length >= 10;
+    
+                        // Limit the number of selected neighborhoods to 10
+                        if (uniqueSelections.length > 10) {
+                            // Deselect the last selected option
+                            neighborhoodSelect.options[uniqueSelections.length - 1].selected = false;
+                            alert('You can select a maximum of 10 neighborhoods.');
+                        }
+                    }
+                });
+        });
+    
+        // Function to remove a selected neighborhood from the list
+        function removeNeighborhoodFromList(element) {
+            const neighborhoodText = element.innerText;
+    
+            // Find and remove the neighborhood from the selected neighborhoods container
+            element.remove();
+    
+            // Find and deselect the corresponding option in the select element
+            const neighborhoodSelect = document.getElementById('neighborhoodFilter');
+            const selectedOptions = Array.from(neighborhoodSelect.selectedOptions);
+            const optionToRemove = selectedOptions.find(option => option.text === neighborhoodText);
+            if (optionToRemove) {
+                optionToRemove.selected = false;
+            }
+    
+            // Enable select after removal
+            neighborhoodSelect.disabled = false;
+        }
+    
+        // Function to handle form submission
+        function submitForm() {
+            const selectedNeighborhoods = Array.from(document.querySelectorAll('.selected-neighborhood'))
+                .map(element => element.innerText);
+    
+            // Create a hidden input field
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'selectedNeighborhoods';
+            hiddenInput.value = JSON.stringify(selectedNeighborhoods);
+    
+            // Append the hidden input to the form
+            document.getElementById('compareAnalysisForm').appendChild(hiddenInput);
+    
+            // Clear the selected neighborhoods container
+            document.getElementById('selectedNeighborhoods').innerHTML = '';
+    
+            // Submit the form
+            document.getElementById('compareAnalysisForm').submit();
+        }
+    </script>
+    
+    
+</body>
+
+</html>

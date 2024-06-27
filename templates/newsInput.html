@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h2>Insert News</h2>
+    <form action="/input_news" method="post" enctype="multipart/form-data">
+
+
+        <input type="hidden" name="newsId" value="3">
+
+        <label for="newssubTitle">News Sub Title:</label>
+        <input type="text" name="newsSubTitle"><br>
+
+        <label for="newsdescription">News Description:</label>
+        <textarea name="newsdescription" rows="4" required></textarea><br>
+
+        <label for="newsPicture">News Picture:</label>
+        <input type="file" name="newsPicture" accept="image/*"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

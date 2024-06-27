@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @media only screen and (max-width: 600px) {
+            .header-home {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header-user {
+                margin-top: 10px;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+        }
+
+        /* Responsive styles for navigation */
+        @media only screen and (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+
+        /* Responsive styles for overview container */
+        @media only screen and (max-width: 1200px) {
+            .overview-container {
+                width: 90%;
+            }
+        }
+
+        /* Responsive styles for neighborhood place */
+        @media only screen and (max-width: 768px) {
+            .neighborhood-place {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+
+        /* Responsive styles for overview content */
+        @media only screen and (max-width: 768px) {
+            .overview-container {
+                width: 90%;
+            }
+
+            .overview-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .overview-content h2 {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            /* Change back to space-between */
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            flex: 1;
+            /* Allow items to take equal width and shrink on smaller screens */
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+            /* Add margin between items */
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+
+        .overview-container {
+            padding: 20px;
+            width: 1250px;
+            margin: auto;
+        }
+
+        .overview-container h2 {
+            color: #CB4004;
+        }
+
+        .price-section {
+            margin-top: 40px;
+        }
+
+        .price-section p {
+            font-size: 18px;
+        }
+
+        .icon {
+            margin-right: 10px;
+        }
+
+        .overview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sales-icon {
+            color: #CB4004;
+        }
+
+        .rent-icon {
+            color: #007BFF;
+        }
+
+        .second-row {
+            margin-top: 50px;
+        }
+
+
+        .neighborhood-place p {
+            font-size: 18px;
+            color: rgb(147, 142, 142);
+        }
+
+        .neighborhood-place h2 {
+            color: #CB4004;
+        }
+
+        .overview-content {
+            width: 1300px;
+            margin-top: 20px;
+        }
+
+        .overview-content p {
+            font-size: 18px;
+            word-spacing: 2px;
+            line-height: 2;
+            color: rgb(147, 142, 142);
+        }
+
+        .overview-content h2 {
+            color: #CB4004;
+        }
+
+        .review-container h2 {
+            color: #CB4004;
+        }
+
+        .review-header {
+            display: flex;
+        }
+
+        .review-container {
+            width: 1300px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .leave-review-button,
+        .view-all-button {
+            background-color: #507BEA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+            width: 10%;
+            height: 50px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal {
+            animation: fadeIn 0.5s;
+        }
+
+        /* Define the fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Style the modal content */
+        .login-register-modal .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border: none;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style the close button */
+        .login-register-modal .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            /* Add a smooth color transition */
+        }
+
+        .login-register-modal .close:hover,
+        .login-register-modal .close:focus {
+            color: #555;
+        }
+
+        /* Style the forms within the modal */
+        .login-register-modal #loginForm,
+        .login-register-modal #registerForm {
+            text-align: center;
+        }
+
+        /* Style the input fields and buttons */
+        #loginForm label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        #loginForm input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        #loginForm button {
+            background-color: #507BEA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            /* Add a smooth background color transition */
+        }
+
+        #loginForm button:hover {
+            background-color: #4057A1;
+        }
+
+        /* Add some additional styles for an attractive design */
+        #loginForm h2 {
+            color: #507BEA;
+        }
+
+        #toggleFormText a {
+            color: #507BEA;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        #toggleFormText a:hover {
+            color: #4057A1;
+        }
+
+        #loginForm textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .modal-content textarea:focus {
+            outline: none;
+        }
+
+        .modal-content button {
+            background-color: #507BEA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            /* Add a smooth background color transition */
+        }
+
+        .modal-content button:hover {
+            background-color: #4057A1;
+        }
+
+
+        .overall-review-container {
+            margin-top: 50px;
+            font-size: 18px;
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+            width: 1300px;
+            background: #f4f4f4;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+
+        /* Add spacing between different categories in the rating container */
+        .rating-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 400px;
+            margin-bottom: 10px;
+            /* Add margin between rows */
+        }
+
+        .overall-first {
+            margin-bottom: 15px;
+        }
+
+        .rating-label {
+            margin-right: 10px;
+        }
+
+        .star-icon {
+            color: #FFD700;
+            font-size: 30px;
+        }
+
+
+        td {
+            padding: 5px;
+        }
+
+        .rating-row {
+            font-size: 22px;
+        }
+
+        .review-row-non-picture {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .user-row {
+            display: flex;
+        }
+
+        .user-row p {
+            font-size: 14px;
+        }
+
+
+        .review-comment-container {
+            width: 250px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            background-color: #789aed;
+            height: 250px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+
+        .review-row p {
+            margin-left: 10px;
+            word-wrap: break-word !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 8;
+            -webkit-box-orient: vertical;
+            margin: 10px;
+        }
+
+        .review-container-row {
+            display: flex;
+            width: 100%;
+            margin-left: 20px;
+            scroll-behavior: smooth;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .review-comment-container {
+            flex: 0 0 auto;
+        }
+
+        .scroll-button {
+            color: #c4bfbf;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            /* Adjust the font size as needed */
+        }
+
+        .scroll-button:hover {
+            background-color: #4057A1;
+        }
+
+        .review-scroll-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            margin-right: 40px;
+
+        }
+
+        .user-row {
+            margin: 10px;
+        }
+
+        .user-row p {
+            margin-left: 10px;
+        }
+
+        .review-details-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .left-content {
+            margin-right: auto;
+        }
+
+        .right-content {
+            margin-left: auto;
+        }
+
+        #reviewDetailsContent .star-icon {
+            font-size: 24px;
+        }
+
+        #reviewDetailsContent span,
+        table {
+            font-size: 18px;
+        }
+
+        #reviewDetailsContent table {
+            border-spacing: 20px;
+        }
+
+        #reviewDetailsContent textarea {
+            height: 100px;
+        }
+
+        .close-button {
+            padding: 10px;
+            background-color: #4CAF50;
+            /* Green background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+
+        .rating-container table {
+            border-spacing: 20px;
+        }
+
+        #viewAllReviewsModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Style for the modal content */
+        #viewAllReviewsModal .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* Style for the close button */
+        #viewAllReviewsModal .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #viewAllReviewsModal .close:hover,
+        #viewAllReviewsModal .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Add fade-in animation for the modal */
+        #viewAllReviewsModal {
+            animation: fadeIn 0.5s;
+        }
+
+        .review-content {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-all-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .review-name-picture {
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-content .review-row-non-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .user-review-date p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .modal-content table {
+            width: 100%;
+            margin-bottom: 15px;
+            border-spacing: 10px;
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        .modal-content table td {
+            padding: 10px;
+            border-bottom: none;
+        }
+
+        .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            color: #333;
+            resize: vertical;
+        }
+
+        .star-icon {
+            color: #FFD700;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        .modal-content {
+            margin-bottom: 20px;
+        }
+
+        .review-name-picture p {
+            margin-left: 15px;
+        }
+
+        .price-section {
+
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .price-section p i {
+            margin-right: 8px;
+        }
+
+
+        .second-row {
+            margin-top: 10px;
+        }
+
+        .price-range {
+            font-weight: bold;
+
+        }
+
+        .no-data {
+            color: #f00;
+        }
+
+        .listing-count {
+            font-weight: bold;
+        }
+
+        .neighborhood-content {
+            margin-left: 130px;
+        }
+
+        .review-message {
+            font-size: 20px;
+            color: #555;
+            text-align: center;
+            margin: 20px auto;
+
+        }
+
+        .leave-review-link {
+            color: #007bff;
+            /* Link color */
+            text-decoration: none;
+            /* Remove underline */
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .leave-review-link:hover {
+            text-decoration: underline;
+            /* Underline on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
+
+        <div class="header-user">
+            {% if 'user_id' in session %}
+            <div class="dropdown">
+                <div class="exists-account">
+                    {% if 'user_profile_picture' in session %}
+                    <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                        alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                    <div class="default-profile-icon">
+                        <i class="fa fa-user" style="font-size: 42px;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="dropdown-content">
+                    <a href="/user_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
+    </nav>
+    {% for neighborhood in property_data %}
+    <div class="overview-container">
+
+        <div class="overview-header">
+            <div class="neighborhood-intro">
+                <h2>{{ neighborhood.neighborhoodName }} Overview</h2>
+                {% if neighborhood.neighborhoodImage %}
+                <img alt="Neighborhood Image" src="{{ url_for('static', filename=neighborhood.neighborhoodImage) }}"
+                    class="neighborhood-image" style="width: 500px; height: 200px;">
+                {% endif %}
+            </div>
+
+            <div class="price-section">
+                <p><i class="fa fa-home icon"></i> Buy</p>
+                {% if neighborhood.minSalesPrice is not none and neighborhood.maxSalesPrice is not none %}
+                <p class="price-range">RM{{ '{:,.0f}'.format(neighborhood.minSalesPrice / 1000) }}k - RM{{
+                    '{:,.0f}'.format(neighborhood.maxSalesPrice / 1000) }}k</p>
+                {% else %}
+                <p class="no-data">No sales data available</p>
+                {% endif %}
+
+                <div class="second-row">
+                    <p><i class="fa fa-building icon"></i> Rent</p>
+                    {% if neighborhood.minRentPrice is not none and neighborhood.maxRentPrice is not none %}
+                    <p class="price-range">RM{{ '{:,.0f}'.format(neighborhood.minRentPrice / 1000) }}k - RM{{
+                        '{:,.0f}'.format(neighborhood.maxRentPrice / 1000) }}k</p>
+                    {% else %}
+                    <p class="no-data">No rent data available</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="price-section">
+                <p><i class="fa fa-shopping-bag icon sales-icon"></i> Sales In</p>
+                <p class="listing-count">{{ neighborhood.salesCount }} listing</p>
+
+                <div class="second-row">
+                    <p><i class="fa fa-bed icon rent-icon"></i> Rent In</p>
+                    <p class="listing-count">{{ neighborhood.rentCount }} listing</p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <hr>
+    <div class="neighborhood-content">
+        <div class="neighborhood-place">
+            <h2>{{neighborhood.neighborhoodName}}</h2>
+            <p>{{neighborhood.city}}, {{neighborhood.state}}</p>
+        </div>
+        <div class="overview-content">
+            <h2>Overview</h2>
+            <p>{{neighborhood.description}}</p>
+        </div>
+        {% endfor %}
+
+        <div class="review-container">
+            <div class="review-header">
+                <h2 style="width: 1150px;">Review</h2>
+                <button type="button" class="leave-review-button" onclick="openReviewForm()">Leave Review</button>
+                <button type="button" class="view-all-button" onclick="openViewAllReviewsModal()">View All</button>
+            </div>
+
+        </div>
+
+        <div id="viewAllReviewsModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeViewAllReviewsModal()">&times;</span>
+                <h2>All Reviews</h2>
+                <div id="allReviewsContent">
+                    {% for review in review_data %}
+                    <div class="review-content">
+                        <div class="review-all-header">
+                            <div class="review-name-picture">
+                                {% if review.customerImage is not none %}
+                                <img src="{{ url_for('static', filename=review.customerImage) }}"
+                                    alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+
+                                {% else %}
+                                <div class="default-profile-icon">
+                                    <i class="fa fa-user" style="font-size: 28px;"></i>
+                                </div>
+                                {% endif %}
+                                <p>{{review.customerName}}</p>
+                            </div>
+                            <div class="user-review-date">
+                                <p>{{ review.reviewDate.strftime('%Y-%m-%d %I:%M:%S %p') }}</p>
+                            </div>
+                        </div>
+
+                        <table>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-map-marker icon"></i> Convenient
+                                </td>
+                                <td>
+                                    <div class="user-review-rating" id="convenientRating{{ review.reviewId }}"></div>
+                                </td>
+
+                                <td style="padding-left:150px;">
+                                    <i class="fa fa-car icon"></i> Traffic
+                                </td>
+                                <td>
+                                    <div class="user-review-rating" id="trafficRating{{ review.reviewId }}"></div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <i class="fa fa-shield icon"></i> Safety
+                                </td>
+                                <td style="margin-right: 20px;">
+                                    <div class="user-review-rating" id="safetyRating{{ review.reviewId }}"></div>
+                                </td>
+
+                                <td style="padding-left:150px;">
+                                    <i class="fa fa-wheelchair icon"></i> Accessibility
+                                </td>
+                                <td>
+                                    <div class="user-review-rating" id="accessibilityRating{{ review.reviewId }}"></div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <textarea id="review" name="review" rows="4" cols="50">{{review.reviewContent}}</textarea>
+
+                        <script>
+                            // JavaScript code to generate and display star icons for each category
+                            generateStars("{{ review.reviewConvenient }}", "convenientRating{{ review.reviewId }}");
+                            generateStars("{{ review.reviewTraffic }}", "trafficRating{{ review.reviewId }}");
+                            generateStars("{{ review.reviewSafety }}", "safetyRating{{ review.reviewId }}");
+                            generateStars("{{ review.reviewAccessibility }}", "accessibilityRating{{ review.reviewId }}");
+
+                            function generateStars(rating, elementId) {
+                                const maxStars = 5;
+                                const fullStars = Math.min(Math.floor(rating), maxStars);
+                                const halfStar = rating % 1 !== 0;
+
+                                let starsHTML = '';
+
+                                // Full stars
+                                for (let i = 0; i < fullStars; i++) {
+                                    starsHTML += '<i class="fas fa-star star-icon"></i>';
+                                }
+
+                                // Half star if applicable
+                                if (halfStar) {
+                                    starsHTML += '<i class="fas fa-star-half-alt star-icon"></i>';
+                                }
+
+                                // Remaining empty stars
+                                const emptyStars = maxStars - fullStars - (halfStar ? 1 : 0);
+                                for (let i = 0; i < emptyStars; i++) {
+                                    starsHTML += '<i class="far fa-star star-icon"></i>';
+                                }
+
+                                document.getElementById(elementId).innerHTML = '<strong>' + starsHTML + '</strong>';
+                            }
+                        </script>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div id="reviewModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeReviewForm()">&times;</span>
+                <h2>Leave a Review</h2>
+                <form action="/get_sentiment_rating" method="POST">
+                    <label for="review">Your Review:</label>
+                    <textarea id="review" name="review" rows="4" cols="50"></textarea>
+                    <br>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div id="loginRegisterModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeLoginRegisterModal()">&times;</span>
+                <div id="loginForm">
+                    <h2>Login</h2>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <p id="loginError" style="color: red;"></p>
+                    <button type="button" onclick="login()">Login</button>
+                </div>
+                <p id="toggleFormText">Don't have an account? <a href="/register_account">Register</a></p>
+            </div>
+        </div>
+
+        <div class="overall-review-container">
+            <h3>Review Summary</h3>
+            <div class="rating-container">
+                <!-- Overall Rating -->
+                <div class="rating-row">
+                    <div class="rating-category">
+                        <div class="overall-first">
+                            <span class="rating-label">
+                                <i class="fa fa-globe icon"></i>Overall: {{ '{:.2f}'.format(overall_rating) }}
+                            </span>
+                        </div>
+                        <div class="star-container" data-rating="{{ overall_rating }}"></div>
+                    </div>
+                </div>
+
+                <table>
+                    <tr>
+                        <td>
+                            <i class="fa fa-car icon"></i> Traffic
+                        </td>
+                        <td class="star-container" data-rating="{{ traffic_rating }}"></td>
+
+
+                        <td class="second-col">
+                            <i class="fa fa-shield icon"></i> Safety
+                        </td>
+                        <td class="star-container" data-rating="{{ safety_rating }}"></td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <i class="fa fa-map-marker icon"></i> Convenient
+                        </td>
+                        <td class="star-container" data-rating="{{ convenient_rating }}"></td>
+
+                        <td>
+                            <i class="fa fa-wheelchair icon"></i> Accessibility
+                        </td>
+                        <td class="star-container" data-rating="{{ accessibility_rating }}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="review-scroll-container">
+            <button class="scroll-button" onclick="scrollReviews('prev')">&#10094;</button>
+            <div class="review-container-row" id="reviewContainer">
+                {% if review_data %}
+                {% for review in review_data %}
+                <!-- Display only the first 5 reviews initially -->
+                <div class="review-comment-container" onclick="openReviewDetailsModal(
+                            '{{ review.reviewDate }}',
+                            '{{ review.reviewContent }}',
+                            '{{ review.reviewRating }}',
+                            '{{ review.reviewConvenient }}',
+                            '{{ review.reviewTraffic }}',
+                            '{{ review.reviewSafety }}',
+                            '{{ review.reviewAccessibility }}',
+                            '{{ review.customerName }}'
+                        )">
+                    <div class="user-row">
+                        <div class="review-row-non-picture">
+                            {% if review.customerImage is not none %}
+                            <img src="{{ url_for('static', filename=review.customerImage) }}" alt="User Profile Picture"
+                                style="width: 50px; height: 50px; border-radius: 50%;">
+                            {% else %}
+                            <div class="default-profile-icon">
+                                <i class="fa fa-user" style="font-size: 28px;"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <p>{{ review.customerName }}</p>
+                    </div>
+                    <div class="review-row">
+                        <p>{{ review.reviewContent }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="review-message">You are the first to leave a review! <a href="#" class="leave-review-link"
+                        onclick="openReviewForm()">Try to leave a review</a>.</p>
+                {% endif %}
+            </div>
+            <button class="scroll-button" onclick="scrollReviews('next')">&#10095;</button>
+        </div>
+
+        <div id="reviewDetailsModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeReviewDetailsModal()">&times;</span>
+                <h2>Review Details</h2>
+                <div id="reviewDetailsContent"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        function openReviewForm() {
+            // Check if the user is logged in
+            fetch('/get_user_session', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Check if 'user_id' is present in the response
+                    if (data && data.user_id) {
+                        // User is logged in, open the review modal
+                        document.getElementById('reviewModal').style.display = 'block';
+                    } else {
+                        // User is not logged in, open the login/register modal
+                        document.getElementById('loginRegisterModal').style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Close the modal
+        function closeReviewForm() {
+            document.getElementById('reviewModal').style.display = 'none';
+        }
+
+        function submitReview() {
+            var customerReviewText = document.getElementById("review").value;
+
+            // Send customerReviewText to the server for sentiment analysis
+            fetch('/get_sentiment_rating', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ 'customer_review': customerReviewText }),
+            })
+                .then(response => {
+                    // Check if the response indicates a successful sentiment analysis
+                    if (response.ok) {
+                        // Manually redirect to the neighborhood_result page
+                        window.location.href = '/neighborhood_result';
+                    } else {
+                        // Handle the case where the sentiment analysis or database update fails
+                        console.error('Sentiment analysis failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+        // Function to update the HTML with sentiment rating and aspect scores
+        function updateReviewResults(sentimentRating, aspectScores) {
+            // You can modify this part to display the results in your desired way
+            alert('Sentiment Rating: ' + sentimentRating + '\nAspect Scores: ' + JSON.stringify(aspectScores));
+        }
+
+        // Function to toggle between login and register forms
+        function toggleForm() {
+            var loginForm = document.getElementById('loginForm');
+            var registerForm = document.getElementById('registerForm');
+            var toggleFormText = document.getElementById('toggleFormText');
+
+            if (loginForm.style.display === 'block') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                toggleFormText.innerHTML = "Already have an account? <a href='javascript:void(0);' onclick='toggleForm()'>Login</a>";
+            } else {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                toggleFormText.innerHTML = "Don't have an account? <a href='javascript:void(0);' onclick='toggleForm()'>Register</a>";
+            }
+        }
+
+        function closeLoginRegisterModal() {
+            document.getElementById('loginRegisterModal').style.display = 'none';
+        }
+
+        function login() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Basic client-side validation
+            if (!email || !password) {
+                document.getElementById("loginError").innerText = "Please enter both email and password.";
+                return;
+            }
+
+            // Send login request to the server
+            fetch('/login_review', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ 'email': email, 'password': password }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Successful login, redirect to the desired page
+                        window.location.href = response.url;  // Redirect to the dashboard or any desired page
+                    } else {
+                        // Unsuccessful login, handle the error
+                        return response.json();  // Parse the JSON response
+                    }
+                })
+                .then(errorData => {
+                    if (errorData && errorData.error) {
+                        // Display the error message to the user
+                        document.getElementById("loginError").innerText = errorData.error;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function scrollReviews(direction) {
+            const container = document.querySelector('.review-container-row');
+            const scrollAmount = 300; // Adjust as needed
+
+            if (direction === 'next') {
+                container.scrollLeft += scrollAmount;
+            } else if (direction === 'prev') {
+                container.scrollLeft -= scrollAmount;
+            }
+        }
+
+
+
+        function generateStarIcons(rating) {
+            const maxStars = 5;
+            const fullStars = Math.min(Math.floor(rating), maxStars);
+            const halfStar = rating % 1 !== 0;
+
+            let starsHTML = '';
+
+            // Full stars
+            for (let i = 0; i < fullStars; i++) {
+                starsHTML += '<i class="fas fa-star star-icon"></i>';
+            }
+
+            // Half star if applicable
+            if (halfStar) {
+                starsHTML += '<i class="fas fa-star-half-alt star-icon"></i>';
+            }
+
+            // Remaining empty stars
+            const emptyStars = maxStars - fullStars - (halfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                starsHTML += '<i class="far fa-star star-icon"></i>';
+            }
+
+            return starsHTML;
+        }
+
+        // Function to open the modal and populate the content
+        function openReviewDetailsModal(reviewDate, reviewContent, reviewRating, reviewConvenient, reviewTraffic, reviewSafety, reviewAccessibility, customerName) {
+            const modal = document.getElementById('reviewDetailsModal');
+            const contentContainer = document.querySelector('.modal-content');
+            const reviewDetailsContent = document.getElementById('reviewDetailsContent');
+
+            // Format reviewDate as a date
+            const formattedReviewDate = new Date(reviewDate).toLocaleDateString();
+
+            // Format reviewRating to display only two decimal places
+            const formattedReviewRating = parseFloat(reviewRating).toFixed(2);
+
+            // Generate star icons for convenience, traffic, safety, and accessibility
+            const convenientStars = generateStarIcons(reviewConvenient);
+            const trafficStars = generateStarIcons(reviewTraffic);
+            const safetyStars = generateStarIcons(reviewSafety);
+            const accessibilityStars = generateStarIcons(reviewAccessibility);
+
+            // Populate the reviewDetailsContent with formatted review details
+            reviewDetailsContent.innerHTML = `
+            <div class="review-details-row">
+                <span class="left-content"><strong>Date:</strong> ${formattedReviewDate}</span>
+                <span class="right-content"><strong>Rating:</strong> ${formattedReviewRating}</span>
+            </div>
+            <table>
+                <tr>
+                    <td style="padding-left:100px;"><strong><i class="fa fa-map-marker icon"></i> Convenient</strong></td>
+                    <td style="padding-right: 400px;">${convenientStars}</td>
+                    <td><strong><i class="fa fa-car icon"></i> Traffic</strong></td>
+                    <td>${trafficStars}</td>
+                </tr>
+                <tr>
+                    <td style="padding-left:100px;"><strong><i class="fa fa-shield icon"></i> Safety</strong></td>
+                    <td>${safetyStars}</td>
+                    <td><strong><i class="fa fa-wheelchair icon"></i> Accessibility</strong></td>
+                    <td>${accessibilityStars}</td>
+                </tr>
+            </table>
+            <textarea readonly>${reviewContent}</textarea>
+        `;
+
+            reviewDetailsContent.insertAdjacentHTML('beforeend', '<button class="close-button" onclick="closeReviewDetailsModal()">Close</button>');
+
+            // Display the modal
+            modal.style.display = 'block';
+        }
+
+        // Function to close the review details modal
+        function closeReviewDetailsModal() {
+            const modal = document.getElementById('reviewDetailsModal');
+            modal.style.display = 'none';
+        }
+
+        // Retrieve star containers
+        const starContainers = document.querySelectorAll('.star-container');
+
+        // Insert star icons into each container
+        starContainers.forEach(container => {
+            const rating = parseFloat(container.getAttribute('data-rating'));
+            container.innerHTML = generateStarIcons(rating);
+        });
+
+        function openViewAllReviewsModal() {
+            document.getElementById('viewAllReviewsModal').style.display = 'block';
+        }
+
+        function closeViewAllReviewsModal() {
+            document.getElementById('viewAllReviewsModal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            var modal = document.getElementById('viewAllReviewsModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+    </script>
+</body>
+
+</html>

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -94,9 +95,9 @@
 
         .register-container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             background-color: #D9D9D9;
-            height: 510px;
+            height: 640px;
         }
 
         .register-side {
@@ -150,16 +151,46 @@
         .register-left-side button {
             text-align: center;
         }
+
+        #toggle-password-button {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            top: 83%;
+            left: 48%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+
+        .error-message {
+            color: #721c24;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        /* Style for individual error messages */
+        .error-message-item {
+            margin: 10px 0;
+        }
+
+
+
+        button {
+            margin: 20px;
+        }
     </style>
 </head>
 
 <body>
     <div class="header-home">
-        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
-            style="width:180px;height:100px;">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
 
         <div class="header-user">
-            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
             <!-- Dropdown container -->
             <div class="dropdown">
                 <div class="padding-account">
@@ -177,11 +208,11 @@
     <hr>
 
     <nav>
-        <a href="/">Buy</a>
-        <a href="/">Rent</a>
-        <a href="/">Compare & Analysis</a>
-        <a href="/">Find Agent</a>
-        <a href="/">Help & Support</a>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
     </nav>
 
     <div class="register-container">
@@ -191,31 +222,173 @@
                     <h2>Sign Up</h2>
                     <p>Sign up as member to make own easy in property</p>
                     <div class="register-line-name">
-                        <label for="register-first-name">Full Name</label>
-                        <input type="text" name="register-full-name" placeholder="Full Name">
+                        <div class="register-error">
+                            <label for="register-first-name">Full Name</label>
+                        </div>
+                        <input type="text" name="register-full-name" placeholder="Full Name" required>
                     </div>
+
                     <div class="register-line-email">
                         <label for="register-email">Email</label>
-                        <input type="email" name="register-email" placeholder="Email">
+                        <input type="email" name="register-email" placeholder="Email" required>
                     </div>
+
                     <div class="register-line-phone">
                         <label for="register-phone">Phone Number</label>
-                        <input type="text" name="register-phone" placeholder="Phone Number">
+                        <input type="text" name="register-phone" placeholder="Phone Number" required>
                     </div>
+
                     <div class="register-line-password">
                         <label for="register-password">Password</label>
-                        <input type="password" name="register-password" placeholder="Password">
+                        <input type="password" name="register-password" placeholder="Password" id="password-input"
+                            required>
+                        <span id="toggle-password-button">
+                            <i id="password-icon" class="fas fa-eye-slash"></i>
+                        </span>
                     </div>
+
+                    <div class="error-container">
+                        <div class="error-message" id="error-email"></div>
+                        <div class="error-message" id="error-phone"></div>
+                        <div id="error-password" class="error-message"></div>
+                        <p class="error-message" id="error-message"></p>
+                    </div>
+
                     <button type="submit">Sign Up</button>
-                    <p>Already Have An Account? <a href="#">Click Here</a></p>
+
+                    <p>Already Have An Account? <a href="/login_account">Click Here</a></p>
+
                 </div>
                 <div class="register-right-side">
                     <img alt="Real Estate Register" src="{{ url_for('static', filename='property-register.png')}}"
-                        style="width:360px;height:510px;">
+                        style="width:360px;height:640px;">
                 </div>
             </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const emailInput = document.getElementsByName('register-email')[0];
+            const phoneInput = document.getElementsByName('register-phone')[0];
+            const passwordInput = document.getElementById("password-input");
+            const passwordIcon = document.getElementById("password-icon");
+            const toggleButton = document.getElementById("toggle-password-button");
+            const passwordValidationMessages = document.getElementById('error-password');
+
+            toggleButton.addEventListener("click", function () {
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";  // Show password
+                    passwordIcon.classList.remove("fa-eye-slash");
+                    passwordIcon.classList.add("fa-eye");  // Change icon to open eye
+                } else {
+                    passwordInput.type = "password";  // Hide password
+                    passwordIcon.classList.remove("fa-eye");
+                    passwordIcon.classList.add("fa-eye-slash");  // Change icon to closed eye
+                }
+            });
+
+            emailInput.addEventListener('input', function () {
+                validateEmail(this.value);
+            });
+
+            phoneInput.addEventListener('input', function () {
+                validatePhone(this.value);
+            });
+
+            passwordInput.addEventListener('input', function () {
+                validatePassword(this.value);
+            });
+
+            function validateEmail(email) {
+                const errorContainer = document.getElementById('error-email');
+                errorContainer.innerHTML = '';
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    errorContainer.innerHTML = '*Invalid email format.';
+                }
+            }
+
+            function validatePhone(phone) {
+                const errorContainer = document.getElementById('error-phone');
+                // Reset previous validation messages
+                errorContainer.innerHTML = '';
+
+                // Perform validation and display messages as needed
+                // Example: Check if the phone number meets certain criteria
+                const phoneRegex = /^\d{10}$/;
+                if (!phoneRegex.test(phone)) {
+                    errorContainer.innerHTML = '*Invalid phone number.';
+                }
+            }
+
+            function validatePassword(password) {
+                passwordValidationMessages.innerHTML = '';
+
+                if (password.trim() === '') {
+                    disableUpdateButton(true);
+                    return;
+                }
+
+                var errorMessages = [];
+
+                // Minimum length validation
+                if (password.length < 8) {
+                    errorMessages.push('*Password must be at least 8 characters long.');
+                }
+
+                // Uppercase letter validation
+                if (!/[A-Z]/.test(password)) {
+                    errorMessages.push('*Password must contain at least one uppercase letter.');
+                }
+
+                // Lowercase letter validation
+                if (!/[a-z]/.test(password)) {
+                    errorMessages.push('*Password must contain at least one lowercase letter.');
+                }
+
+                // Digit validation
+                if (!/\d/.test(password)) {
+                    errorMessages.push('*Password must contain at least one digit.');
+                }
+
+                // Special character validation (customize the regex based on your allowed special characters)
+                if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password)) {
+                    errorMessages.push('*Password must contain at least one special character.');
+                }
+
+                // Display all error messages
+                if (errorMessages.length > 0) {
+                    displayErrorMessage(errorMessages.join('<br>'));
+                    disableUpdateButton(true);
+                }
+                // Clear error message if no errors
+                else {
+                    passwordValidationMessages.innerHTML = '';
+                    disableUpdateButton(false);
+                }
+            }
+
+            function disableUpdateButton(disable) {
+                const updateButton = document.querySelector('button[type="submit"]');
+                updateButton.disabled = disable;
+
+                if (disable) {
+                    updateButton.classList.add('disabled-button');
+                } else {
+                    updateButton.classList.remove('disabled-button');
+                }
+            }
+
+            function displayErrorMessage(message) {
+                var errorContainer = document.getElementById('error-password');
+                errorContainer.innerHTML = '<div class="error-message">' + message + '</div>';
+            }
+
+            disableUpdateButton(false); // Set to true if you want the button to be disabled by default
+        });
+    </script>
 </body>
 
 </html>

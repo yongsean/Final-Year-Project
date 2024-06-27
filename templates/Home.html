@@ -7,6 +7,120 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Register Customer Account</title>
     <style>
+        @media only screen and (max-width: 600px) {
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                /* Change to a column layout for small screens */
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                /* Full width for small screens */
+            }
+        }
+
+
+        @media only screen and (max-width: 600px) {
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account,
+            .exists-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+            }
+
+            .search-machine {
+                flex-direction: column;
+                padding: 20px 10px;
+            }
+
+            .search-machine select,
+            .search-machine input {
+                width: 95%;
+                margin-bottom: 10px;
+            }
+
+            .search-machine {
+                padding: 20px 10px;
+            }
+
+            .search-machine select,
+            .search-machine input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .search-machine button {
+                right: 10px;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .home-search-machine {
+                height: 300px;
+            }
+
+            .search-machine {
+                padding: 10px;
+            }
+
+            .home-state,
+            .property-mode,
+            #property-type,
+            .home-search-text,
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .property-mode,
+            #property-type {
+                margin-left: 0;
+            }
+
+            button {
+                margin-top: 10px;
+            }
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -34,6 +148,24 @@
             padding-top: 10px;
             height: 70px;
 
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .dropdown {
@@ -67,7 +199,7 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-        
+
 
         hr {
             border: 1px solid #E0E0E0;
@@ -79,6 +211,7 @@
             font-size: 24px;
             display: flex;
             justify-content: space-between;
+            /* Change back to space-between */
             align-items: center;
         }
 
@@ -86,9 +219,12 @@
             text-decoration: none;
             color: black;
             padding: 10px 20px;
-            width: 20%;
+            flex: 1;
+            /* Allow items to take equal width and shrink on smaller screens */
             text-align: center;
             font-weight: bold;
+            margin: 5px;
+            /* Add margin between items */
         }
 
         nav a:hover {
@@ -146,13 +282,17 @@
             font-size: 16px;
         }
 
+        select#property-mode {
+            width: 150px;
+        }
+
         .home-state {
             border-top-left-radius: 20px;
             border-bottom-left-radius: 20px;
         }
 
         .search-machine input {
-            width: 50%;
+            width: 45%;
             height: 40px;
             border: 1px solid #ccc;
             border-top-right-radius: 20px;
@@ -170,7 +310,7 @@
             font-size: 16px;
             cursor: pointer;
             position: absolute;
-            right: 240px;
+            right: 165px;
         }
 
         .home-property-content h3 {
@@ -185,27 +325,155 @@
         .popular {
             margin-left: 15px;
             position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .popular:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .popular img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
         }
 
         .popular h4 {
             position: absolute;
-            bottom: 220px;
+            bottom: 10px;
             left: 10px;
-            background-color: transparent;
-            color: white;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
             margin: 0;
+            padding: 5px;
+            border-radius: 5px;
             font-size: 18px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .recommend-container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .recommend-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            cursor: pointer;
+        }
+
+        .recommended-property {
+            width: 300px;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .recommended-property:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .recommended-property img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .recommended-property-content {
+            padding: 20px;
+            /* Increase padding for larger details */
+            text-align: center;
+            /* Center-align content */
+        }
+
+        .recommended-property h4,
+        .recommended-property h5 {
+            margin: 5px 0;
+        }
+
+        .recommended-property h5 {
+            color: #CB4004;
+        }
+
+
+        button.property-link-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;        
+        }
+
+        .home-search-text:focus{
+            outline: none;
+        }
+
+
+        @media only screen and (max-width: 600px) {
+            .search-machine {
+                padding: 10px;
+            }
+
+            .home-search-machine {
+                height: 300px;
+            }
+
+            .search-machine select,
+            .search-machine input {
+                width: 100%;
+            }
+
+            .home-property-content,
+            .recommend-container {
+                width: 100%;
+            }
+
+            .recommended-property {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="header-home">
-        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
-            style="width:180px;height:100px;">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
 
         <div class="header-user">
-            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+            {% if 'user_id' in session %}
+            <div class="dropdown">
+                <div class="exists-account">
+                    {% if 'user_profile_picture' in session %}
+                    <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                        alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                    <div class="default-profile-icon">
+                        <i class="fa fa-user" style="font-size: 42px;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="dropdown-content">
+                    <a href="/user_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            {% else %}
+
             <div class="dropdown">
                 <div class="padding-account">
                     <h3>Login or Sign Up</h3>
@@ -215,6 +483,7 @@
                     <a href="/register_account">Sign Up</a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 
@@ -223,72 +492,111 @@
     <nav>
         <a href="/property_list_buy">Buy</a>
         <a href="/property_list_rent">Rent</a>
-        <a href="/">Compare & Analysis</a>
-        <a href="/">Find Agent</a>
-        <a href="/">Help & Support</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
     </nav>
 
     <div class="home-search-machine">
-        <div class="search-machine">
-            <select class="home-state" name="home-state">
-                <option value="JHR">Johor</option>
-                <option value="KDH">Kedah</option>
-                <option value="KTN">Kelantan</option>
-                <option value="MLK">Melaka</option>
-                <option value="NSN">Negeri Sembilan</option>
-                <option value="PHG">Pahang</option>
-                <option value="PNG">Penang</option>
-                <option value="PRK">Perak</option>
-                <option value="PLS">Perlis</option>
-                <option value="SBH">Sabah</option>
-                <option value="SWK">Sarawak</option>
-                <option value="SGR">Selangor</option>
-                <option value="TRG">Terengganu</option>
-                <option value="KUL">Kuala Lumpur</option>
-            </select>
+        <form action="/search_property" method="POST">
+            <div class="search-machine">
+                <select class="home-state" name="home-state">
+                    <option value="" selected>State</option>
+                    <option value="Johor">Johor</option>
+                    <option value="Kedah">Kedah</option>
+                    <option value="Kelantan">Kelantan</option>
+                    <option value="Melaka">Melaka</option>
+                    <option value="Negeri Sembilan">Negeri Sembilan</option>
+                    <option value="Pahang">Pahang</option>
+                    <option value="Penang">Penang</option>
+                    <option value="Perak">Perak</option>
+                    <option value="Perlis">Perlis</option>
+                    <option value="Sabah">Sabah</option>
+                    <option value="Sarawak">Sarawak</option>
+                    <option value="Selangor">Selangor</option>
+                    <option value="Terangganu">Terengganu</option>
+                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                </select>
 
-            <select id="property-type">
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-                <option value="condo">Condo</option>
-                <option value="townhouse">Townhouse</option>
-                <option value="duplex">Duplex</option>
-                <option value="villa">Villa</option>
-                <option value="cottage">Cottage</option>
-                <option value="bungalow">Bungalow</option>
-                <option value="commercial">Commercial</option>
-                <option value="land">Land</option>
-                <option value="other">Other</option>
-            </select>
+                <select id="property-mode" class="property-mode" name="property-mode">
+                    <option value="" selected>Mode</option>
+                    <option value="Sales">Buy</option>
+                    <option value="Rent">Rent</option>
+                </select>
 
-            <input type="text" name="property-content" class="home-search-text"
-                placeholder="Insert location, Property Name or Neighborhoods">
+                <select id="property-type" name="property-type">
+                    <option value="" selected>Type</option>
+                    <option value="House">House</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Condominium">Condo</option>
+                    <option value="Townhouse">Townhouse</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Cottage">Cottage</option>
+                    <option value="Bungalow">Bungalow</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Land">Land</option>
+                    <option value="Other">Other</option>
+                </select>
 
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </div>
+                <input type="text" name="property-content" class="home-search-text"
+                    placeholder="Insert location, Property Name or Neighborhoods">
+
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
     </div>
 
     <div class="home-property-content">
         <h3>Popular Neighborhoods</h3>
         <div class="flex-popular">
-            <div class="popular">
-                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/home/popular-1.jpeg')}}"
-                    style="width:450px;height:250px;">
-                <h4>Setapak</h4>
-            </div>
-            <div class="popular">
-                <img alt="Real Estate Popular" src="{{ url_for('static', filename='/home/popular-2.jpg')}}"
-                    style="width:450px;height:250px;">
-                <h4>Cheras</h4>
+            <a href="/neighborhood_property?neighborhood=Setapak">
+                <div class="popular" id="setapak-popular">
+                    <img alt="Real Estate Popular" src="{{ url_for('static', filename='/home/popular-1.jpeg')}}"
+                        style="width:450px;height:250px;">
+                    <h4>Setapak</h4>
+                </div>
+            </a>
+            <a href="/neighborhood_property?neighborhood=Cheras">
+                <div class="popular" id="cheras-popular">
+                    <img alt="Real Estate Popular" src="{{ url_for('static', filename='/home/popular-2.jpg')}}"
+                        style="width:450px;height:250px;">
+                    <h4>Cheras</h4>
 
-            </div>
-            <div class="popular">
-                <img alt="Real Estate Popular" src="{{ url_for('static', filename='home/popular-3.jpeg')}}"
-                    style="width:450px;height:250px;">
-                <h4>Kuala Lumpur</h4>
-            </div>
+                </div>
+            </a>
+            <a href="/neighborhood_property?neighborhood=Kuala Lumpur">
+                <div class="popular" id="kuala-lumpur-popular">
+                    <img alt="Real Estate Popular" src="{{ url_for('static', filename='home/popular-3.jpeg')}}"
+                        style="width:450px;height:250px;">
+                    <h4>Kuala Lumpur</h4>
+                </div>
+            </a>
         </div>
     </div>
+
+    {% if recommended_properties %}
+    <div class="recommend-container">
+        <h3>Recommended Properties</h3>
+
+        <div class="recommend-details">
+            {% for property in recommended_properties %}
+            <form action="/property_details_buy" method="POST">
+                <div class="recommended-property">
+                    <input type="hidden" name="propertyID" value="{{property.property_id}}">
+                    <button type="submit" class="property-link-button">
+                        <img src="{{ url_for('static', filename=property.property_image) }}" alt="Property Image">
+                        <div class="recommended-property-content">
+                            <h4>{{ property.property_title }}</h4>
+                            <h5>Price: ${{ property.property_price }}</h5>
+                        </div>
+                    </button>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
 </body>
 

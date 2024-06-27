@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @media only screen and (max-width: 600px) {
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                /* Change to a column layout for small screens */
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                /* Full width for small screens */
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            /* Change back to space-between */
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            flex: 1;
+            /* Allow items to take equal width and shrink on smaller screens */
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+            /* Add margin between items */
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .agent-header {
+            margin-top: 50px;
+            margin-left: 100px;
+            margin-right: 50px;
+            width: 200px;
+        }
+
+        .agent-profile {
+            text-align: left;
+        }
+
+        .agent-profile img {
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+        }
+
+        .agent-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #767373;
+            margin-bottom: 10px;
+        }
+
+        img.agent-image {
+            border-radius: 50%;
+        }
+
+        .details-agent {
+            margin-top: 20px;
+        }
+
+
+        .whatsapp-button {
+            background-color: #5cb85c;
+            width: 120%;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #4cae4c;
+        }
+
+        .email-button,
+        .whatsapp-button {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .email-button {
+            background-color: #ff3b3b;
+            width: 100%;
+        }
+
+        .email-button:hover {
+            background-color: #b02a2a;
+        }
+
+        .agent-details {
+            display: flex;
+        }
+
+        .agent-content {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        /* Add styles for clickable agent content options */
+        .agent-option {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            margin: 10px;
+            background-color: #fff;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            width: 20%;
+        }
+
+        .agent-option:hover {
+            background-color: #f2f2f2;
+        }
+
+        .agent-mode {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .agent-property {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            cursor: pointer;
+        }
+
+        .property-shows {
+            width: 300px;
+            height: 300px;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .property-shows:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-shows img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .agent-property-content {
+            padding: 20px;
+            /* Increase padding for larger details */
+            text-align: center;
+            /* Center-align content */
+        }
+
+        .property-shows h4,
+        .property-shows h5 {
+            margin: 5px 0;
+        }
+
+        .property-shows h5 {
+            color: #CB4004;
+        }
+
+
+        button.property-link-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-place {
+            background: white;
+            margin-left: 10px;
+        }
+
+        .nav-place a {
+            text-decoration: none;
+            color: grey
+        }
+
+        .agent-option-sales {
+            background-color: #a7a4a4;
+            color: #333;
+        }
+
+        .agent-option-rent {
+            background-color: #a7a4a4;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
+
+        <div class="header-user">
+            {% if 'user_id' in session %}
+            <div class="dropdown">
+                <div class="exists-account">
+                    {% if 'user_profile_picture' in session %}
+                    <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                        alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                    <div class="default-profile-icon">
+                        <i class="fa fa-user" style="font-size: 42px;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="dropdown-content">
+                    <a href="/user_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <!-- Display login/sign-up options if no user is logged in -->
+            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/">Find Agent</a>
+    </nav>
+
+    <hr>
+
+    <div class="nav-place">
+        <p><a href="/click_home">Home</a> > {{agent_name}}</p>
+    </div>
+
+    <hr>
+
+    <div class="agent-details">
+        <div class="agent-container">
+            <div class="agent-header">
+                <div class="agent-profile">
+                    <img alt="Agent Image" src="{{ url_for('static', filename=agent_image) }}" class="agent-image"
+                        style="width: 150px; height: 150px;">
+                    <p class="agent-name">{{agent_name}}</p>
+                </div>
+
+                <div class="agent-describe">
+                    {% if agent_description %}
+                    <p>{{ agent_description }}</p>
+                    {% else %}
+                    <p></p>
+                    {% endif %}
+                </div>
+
+                <div class="details-agent" data-agent-name="{{agent_name}}" data-agent-contact="{{agent_contact}}"
+                    data-agent-email="{{agent_email}}">
+                    <button id="whatsapp-button" class="whatsapp-button" aria-label="Contact via WhatsApp">
+                        <img alt="WhatsApp Icon" src="{{ url_for('static', filename='whatsapps.png') }}"
+                            style="width: 20px; height: 20px;">
+                        &nbsp;Open in WhatsApp
+                    </button>
+                    <a href="mailto:{{agent_email}}" class="email-button">
+                        <i class="fa fa-envelope" style="font-size: 18px;"></i>&nbsp; Email
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="agent-content">
+            <div class="agent-mode" id="agentMode">
+                {% if property_status == "Sales" %}
+                <a href="#" onclick="navigateTo('/agent_details_buy?agentId={{agentId}}')"
+                    class="agent-option agent-option-sales" id="for-sale">For Sales ({{ properties_for_sale }})</a>
+                <a href="#" onclick="navigateTo('/agent_details_rent?agentId={{agentId}}')" class="agent-option"
+                    id="for-rent">For Rent ({{ properties_for_rent }})</a>
+                {% elif property_status == "Rent" %}
+                <a href="#" onclick="navigateTo('/agent_details_buy?agentId={{agentId}}')" class="agent-option"
+                    id="for-sale">For Sales ({{ properties_for_sale }})</a>
+                <a href="#" onclick="navigateTo('/agent_details_rent?agentId={{agentId}}')"
+                    class="agent-option agent-option-rent" id="for-rent">For Rent ({{ properties_for_rent }})</a>
+                {% elif property_status == none %}
+                    <a href="#" onclick="navigateTo('/agent_details_buy?agentId={{agentId}}')" class="agent-option" id="for-sale">For Sales ({{ properties_for_sale }})</a>
+                    <a href="#" onclick="navigateTo('/agent_details_rent?agentId={{agentId}}')" class="agent-option" id="for-rent">For Rent ({{ properties_for_rent }})</a>
+                {% endif %}
+            </div>
+
+
+
+
+            <div class="agent-property">
+                {% for property in properties %}
+                <form action="/property_details_buy" method="POST">
+                    <div class="property-shows">
+                        <input type="hidden" name="propertyID" value="{{property.property_id}}">
+                        <button type="submit" class="property-link-button">
+                            <img src="{{ url_for('static', filename=property.property_image_url) }}"
+                                alt="Property Image">
+                            <div class="agent-property-content">
+                                <h4>{{ property.property_title }}</h4>
+                                <h5>Price: ${{ property.property_price }}</h5>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var detailsAgent = document.querySelector(".details-agent");
+        var agentName = detailsAgent.getAttribute("data-agent-name");
+        var agentContact = detailsAgent.getAttribute("data-agent-contact");
+        var message = 'Hi ' + agentName + ' , I am Interested to find out more about your listing I found on metroview';
+
+        // Handle the click event on the WhatsApp button
+        var whatsappButton = document.getElementById('whatsapp-button');
+        whatsappButton.addEventListener('click', function () {
+            // Construct the WhatsApp URL with the dynamic contact number
+            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + agentContact + '&text=' + encodeURIComponent(message);
+
+            // Open WhatsApp in a new tab/window
+            window.open(whatsappUrl, '_blank');
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var forSaleOption = document.getElementById('for-sale');
+            var forRentOption = document.getElementById('for-rent');
+
+            function handleOptionClick(optionId, url) {
+                var option = document.getElementById(optionId);
+                navigateTo(url);
+            }
+
+            forSaleOption.addEventListener('click', function () {
+                handleOptionClick('for-sale', '/agent_details_buy?agentId={{agentId}}');
+            });
+
+            forRentOption.addEventListener('click', function () {
+                handleOptionClick('for-rent', '/agent_details_rent?agentId={{agentId}}');
+            });
+
+            function navigateTo(url) {
+                window.location.href = url;
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

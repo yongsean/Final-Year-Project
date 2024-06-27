@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Register Customer Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            margin-bottom: 20px;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background: white;
+            ;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            /* Change back to space-between */
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            flex: 1;
+            /* Allow items to take equal width and shrink on smaller screens */
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+            /* Add margin between items */
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .nav-place {
+            background: white;
+            margin-left: 10px;
+            height: 20px;
+        }
+
+        .nav-place a {
+            text-decoration: none;
+            color: grey
+        }
+
+
+
+        .details-introduction p {
+            margin-left: 130px;
+        }
+
+        .property-images {
+            width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .image-container {
+            display: flex;
+            overflow: hidden;
+        }
+
+        .property-image {
+            width: 100%;
+            height: auto;
+            display: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Add box-shadow to the property-images class */
+        }
+
+        .image-navigation {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            /* Initially hide navigation icons */
+        }
+
+        .image-container:hover .image-navigation {
+            display: flex;
+            /* Show navigation icons on hover */
+        }
+
+
+        .prev,
+        .next {
+            cursor: pointer;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            color: white;
+        }
+
+        .prev {
+            margin-right: 10px;
+        }
+
+        .next {
+            margin-left: 640px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .details-images {
+            background-color: black;
+        }
+
+        .details-container h4 {
+            margin: 10px;
+            margin-left: 130px;
+        }
+
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+            margin-left: 130px;
+            color: rgba(0, 0, 0, .65);
+        }
+
+        .details-content {
+            width: 700px;
+            margin: 20px 0px;
+            margin-left: 150px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+
+        .details-information {
+            width: 700px;
+            margin: 20px 0px 20px 150px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .details-information h4 {
+            margin-left: 0px;
+        }
+
+        .details-content h4 {
+            margin-left: 0px;
+        }
+
+        .details-information table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px;
+        }
+
+        .details-information tr {
+            border: none;
+        }
+
+        .details-information td {
+            padding: 10px;
+            text-align: left;
+            color: #000;
+        }
+
+        .details-information tr:nth-child(even) {
+            margin-bottom: 20px;
+        }
+
+        /* Style the text in even rows for better visibility */
+        .details-information tr:nth-child(even) td {
+            color: rgb(105, 118, 132);
+        }
+
+        .details-information hr {
+            border: 1px solid #E0E0E0;
+            background-color: white;
+        }
+
+
+        .details-wrapper {
+            display: flex;
+            width: 100%;
+            margin: 0 auto;
+            justify-content: space-between;
+        }
+
+
+        /* Custom styles for details-agent */
+        .custom-details-agent {
+            width: 30%;
+            height: 30%;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 50px 0px 50px;
+        }
+
+        .agent-flex {
+            display: flex;
+        }
+
+        .agent-flex p {
+            margin: 15px;
+        }
+
+        .details-agent button {
+            margin-top: 15px;
+        }
+
+        .whatsapp-button {
+            margin-top: 15px;
+            background-color: #5cb85c;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #4cae4c;
+        }
+
+        .email-button,
+        .whatsapp-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .email-button {
+            margin-top: 15px;
+            background-color: #ff3b3b;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            width: 91%;
+        }
+
+        .email-button:hover {
+            background-color: #b02a2a;
+        }
+
+        #map {
+            width: 50%;
+            height: 400px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin: auto;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .property-details-container {
+            max-width: 50%;
+        }
+
+        .map-container {
+            max-width: 50%;
+            margin-top: 20px;
+        }
+
+        #transportation-info,
+        #hospital-info,
+        #shopping-mall-info {
+            display: none;
+            transition: display 0.3s ease;
+        }
+
+        #school-info {
+            transition: display 0.3s ease;
+        }
+
+        #school-arrow,
+        #transportation-arrow,
+        #hospital-arrow,
+        #shopping-mall-arrow {
+            cursor: pointer;
+            /* Add cursor pointer for better UX */
+        }
+
+        .main-container {
+            width: 1300px;
+            height: 400px;
+            margin: 20px 0px;
+            margin-left: 150px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .nearby-container>h4 {
+            margin-left: 0;
+        }
+
+        .nearby-container {
+            width: 650px;
+        }
+
+        .nearby-container h4:hover {
+            cursor: pointer;
+            color: #007BFF;
+        }
+
+
+        .calculation-container {
+            background-color: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 50px 0px 50px;
+            width: 30%;
+            position: relative;
+            bottom: 150px;
+        }
+
+        .calculation-header h3::before {
+            content: "\f155";
+            /* Unicode for the calculator icon in Font Awesome */
+            font-family: 'FontAwesome';
+            margin-right: 10px;
+        }
+
+        .calculation-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .calculation-content {
+            text-align: center;
+            color: rgb(105, 118, 132);
+        }
+
+        .details-container .calculation-header h3 {
+            text-align: left;
+        }
+
+        .details-container .calculation-content h3 {
+            color: #CB4004;
+            margin-bottom: 10px;
+            margin-left: 0;
+        }
+
+        .calculation-content table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .calculation-content th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .calculation-content th {
+            background-color: #f2f2f2;
+        }
+
+        .calculation-content button {
+            background-color: #CB4004;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .calculation-content button:hover {
+            background-color: #a52b21;
+        }
+
+        .calculation-content label,
+        p {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .calculation-content input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .nearby-container p:hover {
+            cursor: pointer;
+        }
+
+        .similar-container{
+            margin-left: 150px; 
+        }
+        .similar-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            cursor: pointer;
+        }
+
+        .similar-property {
+            width: 300px;
+            margin: 20px 0px;
+            margin-right: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            height: 350px;
+        }
+
+        .similar-property:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .similar-property img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .similar-property-content {
+            padding: 20px;
+            /* Increase padding for larger details */
+            text-align: center;
+            /* Center-align content */
+        }
+
+        .similar-property h4,
+        .similar-property h5 {
+            margin: 5px 0;
+        }
+
+        .similar-property h5 {
+            color: #CB4004;
+        }
+
+        button.property-link-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer; 
+            margin: 20px;       
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+            }
+
+            .property-images {
+                width: 100%;
+            }
+
+            .property-image {
+                width: 100%;
+            }
+
+            .prev,
+            .next {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .next {
+                margin-left: 0;
+            }
+
+            /* Details Content styles */
+            .details-container {
+                flex-direction: column;
+            }
+
+            .details-wrapper {
+                flex-direction: column;
+            }
+
+            .custom-details-content,
+            .custom-details-agent {
+                width: 100%;
+                margin: 20px 0;
+            }
+
+            .agent-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .details-agent button,
+            .email-button {
+                width: 100%;
+            }
+
+            .calculation-container {
+                width: 100%;
+                margin: 20px 0;
+                bottom: 0;
+            }
+
+            .nearby-container {
+                width: 100%;
+            }
+
+            /* Map styles */
+            #map {
+                width: 100%;
+                height: 300px;
+                /* Adjust based on your layout */
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <div class="header-home">
+            <a href="/click_home">
+                <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                    style="width:180px;height:100px;">
+            </a>
+
+            <div class="header-user">
+                {% if 'user_id' in session %}
+                <div class="dropdown">
+                    <div class="exists-account">
+                        {% if 'user_profile_picture' in session %}
+                        <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                            alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                        {% else %}
+                        <div class="default-profile-icon">
+                            <i class="fa fa-user" style="font-size: 42px;"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/user_profile">Profile</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="dropdown">
+                    <div class="padding-account">
+                        <h3>Login or Sign Up</h3>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/login_account">Login</a>
+                        <a href="/register_account">Sign Up</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+        <nav>
+            <a href="/property_list_buy">Buy</a>
+            <a href="/property_list_rent">Rent</a>
+            <a href="/neighborhood_page">Neighborhoods</a>
+            <a href="/compare_Analysis">Compare & Analysis</a>
+            <a href="/news_pages">News & Insight</a>
+        </nav>
+        <hr>
+
+
+        <div class="nav-place">
+            <p><a href="/click_home">Home</a> > <a href='/property_list_buy'>Buy</a></p>
+            <hr>
+        </div>
+    </header>
+
+    {% for property in property_details %}
+    <div class="property-address" style="display: none;">{{ property.propertyAddress }}</div>
+    <div class="details-images">
+        <div class="property-images">
+            <div class="image-container">
+                <div class="image-navigation">
+                    <span class="prev"
+                        onclick="changeImage(-1, this.closest('.property-images')); event.stopPropagation();">&#10094;</span>
+                    <span class="next"
+                        onclick="changeImage(1, this.closest('.property-images')); event.stopPropagation();">&#10095;</span>
+                </div>
+                {% for image in property.propertyImages %}
+                <img alt="Property Image" src="{{ url_for('static', filename=image) }}" class="property-image"
+                    style="width:700px; height:450px;">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="details-introduction">
+        <div class="details-header">
+            <h2>{{property.propertyTitle}}</h2>
+            <h2 style="margin-right: 40px;">{{property.propertyStatus}} RM{{property.propertyPrice}}</h2>
+        </div>
+        <p>{{property.propertyAddress}}</p>
+    </div>
+    <hr>
+    <div class="details-container">
+
+
+        <div class="details-wrapper">
+            <div class="details-content custom-details-content">
+                <h4>Details & Features</h4>
+                <hr>
+                <p>{{property.propertyAddress}}</p>
+                <p>*****Property For {{property.propertyStatus}}*****</p>
+                <p style="margin-bottom: 0px;">---Information---</p>
+                <p id="propertyInformation" style="margin-top: 0px; color: rgb(105, 118, 132);">
+                    {{property.propertyInformation}}</p>
+                <p>===Kindly contact/whatsappp {{property.agentName}} for more information===</p>
+            </div>
+
+            <div class="details-agent custom-details-agent" data-agent-name="{{property.agentName}}"
+                data-agent-contact="{{property.agentContact}}" data-agent-email="{{property.agentEmail}}">
+                <p style="color: #758AC1; margin-left: 0px;">Contact Agent</p>
+                <hr>
+                <div class="agent-flex">
+                    <img alt="Agent Image" src="{{ url_for('static', filename=property.agentImage) }}"
+                        class="agent-image" style="width: 50px; height: 50px; border-radius: 20px;">
+                        <p><a href="/agent_details_rent?agentId={{property.agentId}}"><b style="color: #758AC1;">{{property.agentName}}</b></a><i
+                            style="color:rgb(105, 118, 132);">@{{property.agentName}}</i></p>
+                </div>
+                <button id="whatsapp-button" class="whatsapp-button">
+                    <img alt="Agent Image" src="{{ url_for('static', filename='whatsapps.png') }}" class="agent-image"
+                        style="width: 20px; height: 20px; border-radius: 20px;">&nbsp;Open in WhatsApp</button>
+                <a href="mailto:{{property.agentEmail}}" class="email-button">
+                    <i class="fa fa-envelope" style="font-size: 18px;"></i>&nbsp; Email
+                </a>
+
+
+                </button>
+            </div>
+        </div>
+
+
+
+        <div class="details-wrapper">
+            <div class="details-information">
+                <h4>Property Details</h4>
+                <hr>
+                <table>
+                    <tr>
+                        <td>Property Type:</td>
+                        <td>Land Title:</td>
+                    </tr>
+                    <tr>
+                        <td>{{property.propertyType}}</td>
+                        <td>{{property.landTitle}}</td>
+                    </tr>
+                    <tr>
+                        <td>Property Title Type:</td>
+                        <td>Tenure:</td>
+                    </tr>
+                    <tr>
+                        <td>{{property.typeTitle}}</td>
+                        <td>{{property.houseHold}}</td>
+                    </tr>
+                    <tr>
+                        <td>Built-up Size:</td>
+                        <td>Furnishing:</td>
+                    </tr>
+                    <tr>
+                        <td>{{property.builtInSize}}</td>
+                        <td>{{property.furniture}}</td>
+                    </tr>
+                    <tr>
+                        <td>Posted Date:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td id="postedDate">{{ property.postedDate }}</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div class="main-container">
+            <div class="nearby-container">
+                <h4>Nearby Amenities</h4>
+                <hr>
+                <h4 id="school-arrow">School & University <span id="arrow-school">&#9650;</span></h4>
+                <p id="school-info" class="hidden-info"></p>
+                <h4 id="transportation-arrow">Public transportation <span id="arrow-transportation">&#9660;</span></h4>
+                <p id="transportation-info" class="hidden-info"></p>
+                <h4 id="hospital-arrow">Hospital <span id="arrow-hospital">&#9660;</span></h4>
+                <p id="hospital-info" class="hidden-info"></p>
+                <h4 id="shopping-mall-arrow">Shopping Mall <span id="arrow-shopping">&#9660;</span>
+                </h4>
+                <p id="shopping-mall-info" class="hidden-info"></p>
+            </div>
+            <div id="map"></div>
+        </div>
+
+        {% if similar_list %}
+        <div class="similar-container">
+            <h3>Similar Properties</h3>
+    
+            <div class="similar-details">
+                {% for property in similar_list %}
+                <form action="/property_details_buy" method="POST">
+                    <div class="similar-property">
+                        <input type="hidden" name="propertyID" value="{{property.propertyId}}">
+                        <button type="submit" class="property-link-button">
+                            <img src="{{ url_for('static', filename=property.propertyImage) }}" alt="Property Image">
+                            <div class="similar-property-content">
+                                <h4>{{ property.propertyTitle }}</h4>
+                                <h5>Price: RM{{ property.propertyPrice }}</h5>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+
+
+
+    </div>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQKkl301t-Sjq5EpbXUaIXL2qqaLeYZAY&callback=initMap&libraries=places,geometry"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize the property images and their indexes
+            var properties = document.querySelectorAll(".property-images");
+            properties.forEach(function (property) {
+                property.dataset.imageIndex = 0;
+                showPropertyImages(property); // Display initial property images
+            });
+
+            // Add line breaks to property information
+            var propertyInformation = document.getElementById("propertyInformation");
+            if (propertyInformation) {
+                propertyInformation.innerHTML = insertLineBreaks(propertyInformation.innerHTML);
+            }
+
+            // Format and display the posted date
+            var postedDateElement = document.getElementById("postedDate");
+            if (postedDateElement) {
+                var postedDate = new Date(postedDateElement.innerText);
+                var formattedDate = postedDate.toLocaleDateString(); // Format as a localized date string
+                postedDateElement.innerText = formattedDate; // Update the content with the formatted date
+            }
+
+            var detailsAgent = document.querySelector(".details-agent");
+            var agentName = detailsAgent.getAttribute("data-agent-name");
+            var agentContact = detailsAgent.getAttribute("data-agent-contact");
+            var message = 'Hi ' + agentName + ' , I am Interested to find out more about your listing I found on metroview';
+            // Handle the click event on the WhatsApp button
+            var whatsappButton = document.getElementById('whatsapp-button');
+            whatsappButton.addEventListener('click', function () {
+                // Construct the WhatsApp URL with the dynamic contact number
+                var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + agentContact + '&text=' + encodeURIComponent(message);
+
+                // Open WhatsApp in a new tab/window
+                window.open(whatsappUrl, '_blank');
+            });
+
+            var schoolArrow = document.getElementById('school-arrow');
+            if (schoolArrow) {
+                schoolArrow.addEventListener('click', function () {
+                    // Retrieve the location data for the clicked category
+                    var locationData = getLocationData('school-info');
+                    console.log("Location Data: ", locationData)
+                    // Update the map center to the clicked location
+                    updateMapCenter(locationData);
+                    // Toggle info and hide other info elements as needed
+                    toggleInfo('school-info', 'arrow-school');
+                    hideInfo(['transportation-info', 'hospital-info', 'shopping-mall-info'], ['arrow-transportation', 'arrow-hospital', 'arrow-shopping']);
+                });
+            }
+
+            var transpotationArrow = document.getElementById('transportation-arrow');
+            if (transpotationArrow) {
+                transpotationArrow.addEventListener('click', function () {
+                    toggleInfo('transportation-info', 'arrow-transportation');
+                    hideInfo(['school-info', 'hospital-info', 'shopping-mall-info'], ['arrow-school', 'arrow-hospital', 'arrow-shopping']);
+                });
+            }
+
+            var hospitalArrow = document.getElementById('hospital-arrow');
+            if (hospitalArrow) {
+                hospitalArrow.addEventListener('click', function () {
+                    toggleInfo('hospital-info', 'arrow-hospital');
+                    hideInfo(['school-info', 'transportation-info', 'shopping-mall-info'], ['arrow-school', 'arrow-transportation', 'arrow-shopping']);
+                });
+            }
+
+            var shoppingMallArrow = document.getElementById('shopping-mall-arrow');
+            if (shoppingMallArrow) {
+                shoppingMallArrow.addEventListener('click', function () {
+                    toggleInfo('shopping-mall-info', 'arrow-shopping');
+                    hideInfo(['school-info', 'transportation-info', 'hospital-info'], ['arrow-school', 'arrow-transportation', 'arrow-hospital ']);
+                });
+            }
+            initMap()
+        });
+
+
+        function changeImage(n, property) {
+            // Retrieve the current image index for the property
+            var imageIndex = parseInt(property.dataset.imageIndex);
+            imageIndex += n;
+
+            var images = property.querySelectorAll(".property-image");
+            if (imageIndex >= images.length) {
+                imageIndex = 0;
+            } else if (imageIndex < 0) {
+                imageIndex = images.length - 1;
+            }
+
+            // Update the property's data attribute with the new image index
+            property.dataset.imageIndex = imageIndex;
+            showPropertyImages(property);
+        }
+
+        function showPropertyImages(property) {
+            var images = property.querySelectorAll(".property-image");
+            var imageIndex = parseInt(property.dataset.imageIndex);
+
+            // Hide all images
+            images.forEach(function (image) {
+                image.style.display = "none";
+            });
+
+            // Display the current image
+            images[imageIndex].style.display = "block";
+        }
+
+        function insertLineBreaks(text) {
+            return text.replace(/-/g, "<br>-");
+        }
+
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 28.70, lng: 77.10 },
+                zoom: 15,
+            });
+
+            // Retrieve the property address using a query selector
+            var propertyAddressElement = document.querySelector('.property-address');
+            if (!propertyAddressElement) {
+                console.error('Property address element not found.');
+                return;
+            }
+
+            var propertyAddress = propertyAddressElement.textContent.trim();
+
+            // Use the Google Maps Geocoding API to convert the address into coordinates
+            var geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({ 'address': propertyAddress }, function (results, status) {
+                if (status === 'OK') {
+                    // Set the map center to the retrieved coordinates
+                    map.setCenter(results[0].geometry.location);
+
+                    // Add a marker for the property location
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        title: 'Property Location',
+                        icon: {
+                            url: 'https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png',
+                            scaledSize: new google.maps.Size(40, 40)
+                        }
+                    });
+
+                    // Fetch and display nearby schools and transportation
+                    fetchNearbyPlaces(results[0].geometry.location);
+                } else {
+                    console.error('Geocoding was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function fetchNearbyPlaces(location) {
+
+            //fetch the transportation
+            getNearbyPlaces(location, 6000, ['transit_station'], function (placesResults, placesStatus) {
+
+                var transportationInfo = document.getElementById('transportation-info');
+
+                if (placesStatus === 'OK') {
+                    // Sort places by distance
+                    placesResults.sort(function (a, b) {
+                        return google.maps.geometry.spherical.computeDistanceBetween(location, a.geometry.location) -
+                            google.maps.geometry.spherical.computeDistanceBetween(location, b.geometry.location);
+                    });
+
+                    // Select the top 5 results as the closest places
+                    var closestPlaces = placesResults.slice(0, 10);
+
+                    for (var i = 0; i < closestPlaces.length; i++) {
+                        var place = closestPlaces[i];
+                        var placeName = place.name;
+                        var placeAddress = place.vicinity;
+                        var distance = google.maps.geometry.spherical.computeDistanceBetween(location, place.geometry.location);
+
+                        // Convert distance to kilometers and round to two decimal places
+                        var distanceInKm = (distance / 1000).toFixed(2);
+
+                        if (place.types.includes('transit_station')) {
+                            transportationInfo.innerHTML += (i + 1) + '. ' + placeName + ' - Distance: ' + distanceInKm + ' km<br>';
+                        }
+                    }
+                } else {
+                    console.error('Places search for nearby places was not successful for the following reason: ' + placesStatus);
+                }
+            });
+
+            //fetch the schools
+            getNearbyPlaces(location, 6000, ['school', 'university'], function (placesResults, placesStatus) {
+
+                var schoolInfo = document.getElementById('school-info');
+
+                if (placesStatus === 'OK') {
+                    // Sort places by distance
+                    placesResults.sort(function (a, b) {
+                        return google.maps.geometry.spherical.computeDistanceBetween(location, a.geometry.location) -
+                            google.maps.geometry.spherical.computeDistanceBetween(location, b.geometry.location);
+                    });
+
+                    // Select the top 5 results as the closest places
+                    var closestPlaces = placesResults.slice(0, 10);
+
+                    for (var i = 0; i < closestPlaces.length; i++) {
+                        var place = closestPlaces[i];
+                        var placeName = place.name;
+                        var placeAddress = place.vicinity;
+                        var distance = google.maps.geometry.spherical.computeDistanceBetween(location, place.geometry.location);
+
+                        // Convert distance to kilometers and round to two decimal places
+                        var distanceInKm = (distance / 1000).toFixed(2);
+
+                        if (place.types.includes('school', 'university')) {
+                            schoolInfo.innerHTML += (i + 1) + '. ' + placeName + ' - Distance: ' + distanceInKm + ' km<br>';
+                        }
+                    }
+                } else {
+                    console.error('Places search for nearby places was not successful for the following reason: ' + placesStatus);
+                }
+            });
+
+            //fetch the schools
+            getNearbyPlaces(location, 6000, ['hospital'], function (placesResults, placesStatus) {
+
+                var hospitalInfo = document.getElementById('hospital-info');
+
+                if (placesStatus === 'OK') {
+                    // Sort places by distance
+                    placesResults.sort(function (a, b) {
+                        return google.maps.geometry.spherical.computeDistanceBetween(location, a.geometry.location) -
+                            google.maps.geometry.spherical.computeDistanceBetween(location, b.geometry.location);
+                    });
+
+                    // Select the top 5 results as the closest places
+                    var closestPlaces = placesResults.slice(0, 10);
+
+                    for (var i = 0; i < closestPlaces.length; i++) {
+                        var place = closestPlaces[i];
+                        var placeName = place.name;
+                        var placeAddress = place.vicinity;
+                        var distance = google.maps.geometry.spherical.computeDistanceBetween(location, place.geometry.location);
+
+                        // Convert distance to kilometers and round to two decimal places
+                        var distanceInKm = (distance / 1000).toFixed(2);
+
+                        if (place.types.includes('hospital')) {
+                            hospitalInfo.innerHTML += (i + 1) + '. ' + placeName + ' - Distance: ' + distanceInKm + ' km<br>';
+                        }
+                    }
+                } else {
+                    console.error('Places search for nearby places was not successful for the following reason: ' + placesStatus);
+                }
+            });
+
+            getNearbyPlaces(location, 6000, ['supermarket'], function (placesResults, placesStatus) {
+
+                var shoppingInfo = document.getElementById('shopping-mall-info');
+
+                if (placesStatus === 'OK') {
+                    // Sort places by distance
+                    placesResults.sort(function (a, b) {
+                        return google.maps.geometry.spherical.computeDistanceBetween(location, a.geometry.location) -
+                            google.maps.geometry.spherical.computeDistanceBetween(location, b.geometry.location);
+                    });
+
+                    // Select the top 5 results as the closest places
+                    var closestPlaces = placesResults.slice(0, 10);
+
+                    for (var i = 0; i < closestPlaces.length; i++) {
+                        var place = closestPlaces[i];
+                        var placeName = place.name;
+                        var placeAddress = place.vicinity;
+                        var distance = google.maps.geometry.spherical.computeDistanceBetween(location, place.geometry.location);
+
+                        // Convert distance to kilometers and round to two decimal places
+                        var distanceInKm = (distance / 1000).toFixed(2);
+
+                        if (place.types.includes('supermarket')) {
+                            shoppingInfo.innerHTML += (i + 1) + '. ' + placeName + ' - Distance: ' + distanceInKm + ' km<br>';
+                        }
+                    }
+                } else {
+                    console.error('Places search for nearby places was not successful for the following reason: ' + placesStatus);
+                }
+            });
+        }
+
+        // Add this function to handle fetching nearby places
+        function getNearbyPlaces(location, radius, types, callback) {
+            var placesService = new google.maps.places.PlacesService(map);
+
+            placesService.nearbySearch({
+                location: location,
+                radius: radius,
+                types: types
+            }, function (results, status) {
+                if (status === 'OK') {
+                    // Sort places by distance
+                    results.sort(function (a, b) {
+                        return google.maps.geometry.spherical.computeDistanceBetween(location, a.geometry.location) -
+                            google.maps.geometry.spherical.computeDistanceBetween(location, b.geometry.location);
+                    });
+
+                    // Call the callback with the sorted results
+                    callback(results, status);
+                }
+            });
+        }
+
+        function getLocationData(infoElementId) {
+            var infoElement = document.getElementById(infoElementId);
+            console.log('info Element', infoElement)
+            if (infoElement) {
+                // Parse the content of the info element to extract location data
+                var locationData = parseLocationData(infoElement.innerText);
+                return locationData;
+            }
+            return null;
+        }
+
+        function parseLocationData(infoContent) {
+            // Assuming the info content format is "1. Place Name - Distance: 0.27 km"<br>​"2. Another Place - Distance: 1.05 km"<br>​...
+            var regex = /(\d+\.\s\S+?)\s-\sDistance:\s(\d+\.\d+)\skm/g;
+            var matches = infoContent.matchAll(regex);
+
+            // Extract place name and distance from the regex matches
+            var locationData = [];
+            for (const match of matches) {
+                locationData.push({
+                    placeName: match[1],
+                    distance: parseFloat(match[2])
+                });
+            }
+
+            return locationData;
+        }
+
+        // Function to update the map center
+        function updateMapCenter(locationData) {
+            if (locationData && locationData.lat && locationData.lng) {
+                map.setCenter(new google.maps.LatLng(locationData.lat, locationData.lng));
+                // You can also adjust the zoom level if needed
+                // map.setZoom(yourPreferredZoomLevel);
+            }
+        }
+
+        function toggleInfo(infoId, arrowId) {
+            var infoElement = document.getElementById(infoId);
+            var arrowElement = document.getElementById(arrowId);
+
+            // Toggle the display property to show/hide the info
+            if (infoElement.style.display === 'none' || infoElement.style.display === '') {
+                infoElement.style.display = 'block';
+                arrowElement.innerHTML = '&#9650;'; // HTML entity code for an up-pointing triangle (▲)
+            } else {
+                infoElement.style.display = 'none';
+                arrowElement.innerHTML = '&#9660;'; // HTML entity code for a down-pointing triangle (▼)
+            }
+        }
+
+        function hideInfo(infoIds, arrowIds) {
+            for (var i = 0; i < infoIds.length; i++) {
+                var infoElement = document.getElementById(infoIds[i]);
+                var arrowElement = document.getElementById(arrowIds[i]);
+
+                if (infoElement.style.display !== 'none') {
+                    infoElement.style.display = 'none';
+                    arrowElement.innerHTML = '&#9660;'; // HTML entity code for a down-pointing triangle (▼)
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

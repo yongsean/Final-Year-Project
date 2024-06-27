@@ -77,6 +77,7 @@
             font-size: 24px;
             display: flex;
             justify-content: space-between;
+            /* Change back to space-between */
             align-items: center;
         }
 
@@ -84,10 +85,14 @@
             text-decoration: none;
             color: black;
             padding: 10px 20px;
-            width: 20%;
+            flex: 1;
+            /* Allow items to take equal width and shrink on smaller screens */
             text-align: center;
             font-weight: bold;
+            margin: 5px;
+            /* Add margin between items */
         }
+
 
         nav a:hover {
             background-color: #CB4004;
@@ -158,6 +163,10 @@
             background: none;
             border: none;
             padding: 0;
+            position: absolute; 
+            top: 65%; 
+            left: 48%; 
+            transform: translateY(-50%); 
             cursor: pointer;
         }
 
@@ -170,16 +179,76 @@
             color: #0056b3;
         }
 
+        @media only screen and (max-width: 768px) {
+            .container-sign-in {
+                width: 90%;
+            }
+
+            .login-side {
+                flex-direction: column-reverse;
+            }
+
+            .login-left-side,
+            .login-right-side {
+                width: 100%;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container-sign-in {
+                width: 100%;
+            }
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            .login-left-side,
+            .login-right-side {
+                width: 100%;
+            }
+
+            nav {
+                flex-direction: column;
+                /* Change to a column layout for small screens */
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                /* Full width for small screens */
+            }
+
+            #toggle-password-button {
+            top: 177%; 
+            left: 95%; 
+
+        }
+        }
     </style>
 </head>
 
 <body>
     <div class="header-home">
-        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
-            style="width:180px;height:100px;">
+        <a href="/">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                 style="width:180px;height:100px;">
+        </a>
 
         <div class="header-user">
-            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
             <div class="dropdown">
                 <div class="padding-account">
                     <h3>Login or Sign Up</h3>
@@ -195,11 +264,11 @@
     <hr>
 
     <nav>
-        <a href="/">Buy</a>
-        <a href="/">Rent</a>
-        <a href="/">Compare & Analysis</a>
-        <a href="/">Find Agent</a>
-        <a href="/">Help & Support</a>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
     </nav>
 
     <div class="container-sign-in">
@@ -209,14 +278,15 @@
                 <p>Sign in as member to view perform your action</p>
                 <form action="/login_member" method="post">
                     <input type="email" name="sign-in-email" placeholder="Enter Your Email">
-                    <input type="password" name="sign-in-password" placeholder="Enter Your Password" id="password-input">
-                    <span id="toggle-password-button" style="position: absolute;right: 785px; top:62%;transform: translateY(-50%); cursor: pointer;">
+                    <input type="password" name="sign-in-password" placeholder="Enter Your Password"
+                        id="password-input">
+                    <span id="toggle-password-button">
                         <i id="password-icon" class="fas fa-eye-slash"></i>
                     </span>
                     <p style="color:red; text-align: left;">{{error}}</p>
                     <button type="submit" name="sign-in-button">Sign In</button>
                 </form>
-                <a href="#" class="forgot-password">Forgot Your Password?</a>
+                <a href="/forgot_password" class="forgot-password">Forgot Your Password?</a>
                 <p>Don't Have Account? <a href="/register_account" class="register-account-link">Click Here</a></p>
             </div>
 

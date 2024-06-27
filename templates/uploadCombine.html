@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Property Information and Images</title>
+</head>
+<body>
+    <h1>Upload Property Information and Images</h1>
+    <form method="POST" action="/upload_combined" enctype="multipart/form-data">
+        <label for="property_id">Property ID:</label>
+        <input type="text" name="property_id" required><br>
+
+        <label for="property_title">Property Title:</label>
+        <input type="text" name="property_title" required><br>
+
+        <label for="property_address">Property Address:</label>
+        <input type="text" name="property_address" required><br>
+
+        <label for="property_price">Property Price (RM):</label>
+        <input type="text" name="property_price" required><br>
+
+        <label for="property_type">Property Type:</label>
+        <input type="text" name="property_type" required><br>
+
+        <label for="furnishing">Furnishing:</label>
+        <input type="text" name="furnishing" required><br>
+
+        <label for="built_in_size">Built-in Size (sqft):</label>
+        <input type="text" name="built_in_size" required><br>
+
+        <label for="property_status">Property Status:</label>
+        <input type="text" name="property_status" required><br>
+
+        <label for="facility">Facility:</label>
+        <input type="text" name="facility"><br>
+
+        <label for="bathroom">Bathroom:</label>
+        <input type="text" name="bathroom" required><br>
+
+        <label for="bedroom">Bedroom:</label>
+        <input type="text" name="bedroom" required><br>
+
+        <label for="property_hold">Property Hold:</label>
+        <input type="text" name="property_hold" required><br>
+
+        <label for="land_title">Land Title:</label>
+        <input type="text" name="land_title" required><br>
+
+        <label for="property_title_type">Property Type Title</label>
+        <input type="text" name="property_title_type" required><br>
+
+        <label for="postedDate">Posted Date:</label>
+        <input type="datetime-local" id="birthdaytime" name="postedDate">
+
+        <label for="property_information">Property Information</label>
+        <textarea name="property_information" rows="10" cols="50"></textarea><br>
+
+        <label for="file">Upload Images:</label>
+        <input type="file" name="file" multiple required><br>
+
+        <input type="text" name="agentId" value="1">
+        <label for="agentName">Agent Name:</label>
+        <input type="text" name="agentName" required><br><br>
+
+        <label for="agentContact">Agent Contact:</label>
+        <input type="text" name="agentContact" required><br><br>
+
+        <label for="agentEmail">Agent Email:</label>
+        <input type="email" name="agentEmail" required><br><br>
+
+        <label for="agentRent">Agent Rent:</label>
+        <input type="number" name="agentRent" ><br><br>
+
+        <label for="agentSold">Agent Sold:</label>
+        <input type="number" name="agentSold" ><br><br>
+
+        <label for="agencyName">Agency Name:</label>
+        <input type="text" name="agencyName"><br><br>
+
+        <label for="file">Upload Agent Image:</label>
+        <input type="file" name="agentFile" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

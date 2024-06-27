@@ -3,172 +3,216 @@
 
 <head>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+        @media only screen and (max-width: 600px) {
+            .container-sign-in {
+                width: 100%;
+            }
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            .login-left-side,
+            .login-right-side {
+                width: 100%;
+            }
+
+            nav {
+                flex-direction: column;
+                /* Change to a column layout for small screens */
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                /* Full width for small screens */
+            }
         }
 
-        .header-home {
-            display: flex;
-            justify-content: space-between;
-        }
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
 
-        .header-user {
-            display: flex;
-            margin-top: 10px;
-        }
+            .header-home {
+                display: flex;
+                justify-content: space-between;
+            }
 
-        .padding-account {
-            margin-left: 80px;
-            margin-right: 40px;
-            background-color: #758AC1;
-            border-radius: 50px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 10px;
-            height: 70px;
+            .header-user {
+                display: flex;
+                margin-top: 10px;
+            }
 
-        }
+            .padding-account {
+                margin-left: 80px;
+                margin-right: 40px;
+                background-color: #758AC1;
+                border-radius: 50px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-top: 10px;
+                height: 70px;
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+            }
 
-        /* Style for the dropdown content */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            right: 0;
-        }
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
 
-        /* Style for the dropdown links */
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
+            /* Style for the dropdown content */
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+                right: 0;
+            }
 
-        .dropdown-content a:hover {
-            background-color: #f2f2f2;
-        }
+            /* Style for the dropdown links */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+            .dropdown-content a:hover {
+                background-color: #f2f2f2;
+            }
 
-        hr {
-            border: 1px solid #E0E0E0;
-        }
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
 
-        nav {
-            border-radius: 50px;
-            padding: 10px;
-            font-size: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+            hr {
+                border: 1px solid #E0E0E0;
+            }
 
-        nav a {
-            text-decoration: none;
-            color: black;
-            padding: 10px 20px;
-            width: 20%;
-            text-align: center;
-            font-weight: bold;
-        }
+            nav {
+                border-radius: 50px;
+                padding: 10px;
+                font-size: 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-        nav a:hover {
-            background-color: #CB4004;
-            color: white;
-        }
+            nav a {
+                text-decoration: none;
+                color: black;
+                padding: 10px 20px;
+                width: 20%;
+                text-align: center;
+                font-weight: bold;
+            }
 
-        .verification-container {
-            max-width: 500px;
-            padding: 20px;
-            border: 1px solid #E0E0E0;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin: 0 auto;
-            background-color: #EBECF0;
-        }
+            nav a:hover {
+                background-color: #CB4004;
+                color: white;
+            }
 
-        .verification-container img {
-            margin: 0 auto;
-            width: 300px;
-            height: 250px;
-        }
+            .verification-container {
+                max-width: 500px;
+                padding: 20px;
+                border: 1px solid #E0E0E0;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                margin: 0 auto;
+                background-color: #EBECF0;
+            }
 
-        .verification-container h3 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            .verification-container img {
+                margin: 0 auto;
+                width: 300px;
+                height: 250px;
+            }
 
-        .verification-container p {
-            text-align: left;
-            font-size: 12px;
-            color: #777;
-        }
+            .verification-container h3 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
 
-        .verify-form-container {
-            width: 100%;
-        }
+            .verification-container p {
+                text-align: left;
+                font-size: 12px;
+                color: #777;
+            }
 
-        .verification-container input {
-            width: 95%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #E0E0E0;
-            border-radius: 5px;
-            background-color: #D9D9D9;
-        }
+            .verify-form-container {
+                width: 100%;
+            }
 
-        button.button-send {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #e5877c;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+            .verification-container input {
+                width: 95%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #E0E0E0;
+                border-radius: 5px;
+                background-color: #D9D9D9;
+            }
 
-        button.button-send:hover {
-            background-color: #E5957C;
-        }
+            button.button-send {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                background-color: #e5877c;
+                border: none;
+                border-radius: 5px;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+            }
 
-        button.button-resend {
-            background: transparent;
-            color: #777777;
-            width: -10%;
-            font-size: 12px;
-            text-decoration: underline;
-            border: none;
-        }
+            button.button-send:hover {
+                background-color: #E5957C;
+            }
+
+            button.button-resend {
+                background: transparent;
+                color: #a5a5a5;
+                width: -10%;
+                font-size: 12px;
+                text-decoration: underline;
+                border: none;
+            }
+
+            span#countdown-seconds, span#countdown{
+                color: #b1b1b1;
+            }
     </style>
 </head>
 
 <body>
     <div class="header-home">
-        <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
-            style="width:180px;height:100px;">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
 
         <div class="header-user">
-            <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
             <!-- Dropdown container -->
             <div class="dropdown">
                 <div class="padding-account">
@@ -176,7 +220,7 @@
                 </div>
                 <!-- Dropdown content -->
                 <div class="dropdown-content">
-                    <a href="#">Login</a>
+                    <a href="/login_account">Login</a>
                     <a href="/register_account">Sign Up</a>
                 </div>
             </div>
@@ -186,11 +230,11 @@
     <hr>
 
     <nav>
-        <a href="/">Buy</a>
-        <a href="/">Rent</a>
-        <a href="/">Compare & Analysis</a>
-        <a href="/">Find Agent</a>
-        <a href="/">Help & Support</a>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
     </nav>
 
     <div class="verification-container">
@@ -214,7 +258,7 @@
     </div>
 
     <script>
-        var countdown = 5; // 60 seconds for 1 minute
+        var countdown = 60; // 60 seconds for 1 minute
         var countdownElement = document.getElementById('countdown');
         var countdownInfoElement = document.getElementById('countdown-info');
         var countdownSeconds = document.getElementById('countdown-seconds');
@@ -250,11 +294,11 @@
         function resendVerificationCode() {
 
             // Reset the countdown and UI
-            countdown = 5;
+            countdown = 60;
             countdownElement.style.display = 'inline'; // Display countdown again
             countdownSeconds.style.display = 'inline';
             resendButton.style.color = '#777777';
-            resendButton.style.cursor='context-menu';
+            resendButton.style.cursor = 'context-menu';
             resendButton.setAttribute('enabled', 'disabled'); // Disable the button
             startCountdown();
         }

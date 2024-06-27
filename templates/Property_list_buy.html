@@ -5,14 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha384-ezrB/AUXTJ+Y5QgNq8IgHpf1lJssQAdTZcZMLGKM1Qq4KPUn4MKE4UHCocMkVCe5" crossorigin="anonymous">
+
     <title>Register Customer Account</title>
     <style>
+        @media only screen and (max-width: 600px) {
+
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                /* Change to a column layout for small screens */
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                /* Full width for small screens */
+            }
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            margin-bottom: 20px;
             background-color: #f2f2f2;
         }
 
@@ -24,13 +57,11 @@
         .header-home {
             display: flex;
             justify-content: space-between;
-            background-color: white;
         }
 
         .header-user {
             display: flex;
             margin-top: 10px;
-            background-color: white;
         }
 
         .padding-account {
@@ -45,11 +76,27 @@
 
         }
 
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .dropdown {
             position: relative;
             display: inline-block;
-            background-color: white;
-            ;
         }
 
         /* Style for the dropdown content */
@@ -61,7 +108,6 @@
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
             right: 0;
-            background-color: white;
         }
 
         /* Style for the dropdown links */
@@ -70,7 +116,6 @@
             padding: 12px 16px;
             text-decoration: none;
             display: block;
-            background-color: white;
         }
 
         .dropdown-content a:hover {
@@ -81,9 +126,9 @@
             display: block;
         }
 
+
         hr {
             border: 1px solid #E0E0E0;
-            background-color: white;
         }
 
         nav {
@@ -93,7 +138,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: white;
         }
 
         nav a {
@@ -231,7 +275,7 @@
         .property-list-container {
             max-width: 800px;
             margin-left: 100px;
-            
+
         }
 
         .property-images {
@@ -313,10 +357,100 @@
         }
 
         .property h2,
-        h3,
+        .property h3,
         .property-details-row,
         .property-details-row2 {
             margin: 15px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .pagination button {
+            background-color: #3498db;
+            /* Blue background color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination button:hover {
+            background-color: #2980b9;
+            /* Darker blue on hover */
+        }
+
+        #currentPage {
+            font-size: 16px;
+            margin: 0 10px;
+            color: #3498db;
+            /* Blue text color */
+        }
+
+        .home-search-text:focus{
+            outline: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .header-user {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .padding-account,
+            .exists-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+            }
+
+            .search-machine {
+                flex-direction: column;
+                padding: 20px 10px;
+            }
+
+            .search-machine select,
+            .search-machine input {
+                width: 95%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Animation for the background image in the header */
+        @keyframes slide {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
 </head>
@@ -324,217 +458,248 @@
 <body>
     <header>
         <div class="header-home">
-            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
-                style="width:180px;height:100px;">
+            <a href="/click_home">
+                <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                    style="width:180px;height:100px;">
+            </a>
 
             <div class="header-user">
-                <h3 style="color:#CB4004; margin-top:25px;">For Agent</h3>
-                <!-- Dropdown container -->
+                {% if 'user_id' in session %}
+                <div class="dropdown">
+                    <div class="exists-account">
+                        {% if 'user_profile_picture' in session %}
+                        <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                            alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                        {% else %}
+                        <div class="default-profile-icon">
+                            <i class="fa fa-user" style="font-size: 42px;"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/user_profile">Profile</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+                {% else %}
                 <div class="dropdown">
                     <div class="padding-account">
                         <h3>Login or Sign Up</h3>
                     </div>
-                    <!-- Dropdown content -->
                     <div class="dropdown-content">
                         <a href="/login_account">Login</a>
                         <a href="/register_account">Sign Up</a>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
-
         <hr>
 
         <nav>
-            <a href="/">Buy</a>
-            <a href="/">Rent</a>
-            <a href="/">Compare & Analysis</a>
-            <a href="/">Find Agent</a>
-            <a href="/">Help & Support</a>
+            <a href="/property_list_buy">Buy</a>
+            <a href="/property_list_rent">Rent</a>
+            <a href="/neighborhood_page">Neighborhoods</a>
+            <a href="/compare_Analysis">Compare & Analysis</a>
+            <a href="/news_pages">News & Insight</a>
         </nav>
+
         <hr>
-
-
         <div class="nav-place">
-            <p><a href="/">Home</a> > Buy</p>
+            <p><a href="/click_home">Home</a> > Buy</p>
         </div>
         <div class="home-search-machine">
-            <div class="search-machine">
-                <select class="home-state" name="home-state">
-                    <option value="JHR">Johor</option>
-                    <option value="KDH">Kedah</option>
-                    <option value="KTN">Kelantan</option>
-                    <option value="MLK">Melaka</option>
-                    <option value="NSN">Negeri Sembilan</option>
-                    <option value="PHG">Pahang</option>
-                    <option value="PNG">Penang</option>
-                    <option value="PRK">Perak</option>
-                    <option value="PLS">Perlis</option>
-                    <option value="SBH">Sabah</option>
-                    <option value="SWK">Sarawak</option>
-                    <option value="SGR">Selangor</option>
-                    <option value="TRG">Terengganu</option>
-                    <option value="KUL">Kuala Lumpur</option>
-                </select>
+            <form action="/search_property" method="POST">
+                <div class="search-machine">
+                    <select class="home-state" name="home-state">
+                        <option value="" selected>State</option>
+                        <option value="Johor">Johor</option>
+                        <option value="Kedah">Kedah</option>
+                        <option value="Kelantan">Kelantan</option>
+                        <option value="Melaka">Melaka</option>
+                        <option value="Negeri Sembilan">Negeri Sembilan</option>
+                        <option value="Pahang">Pahang</option>
+                        <option value="Penang">Penang</option>
+                        <option value="Perak">Perak</option>
+                        <option value="Perlis">Perlis</option>
+                        <option value="Sabah">Sabah</option>
+                        <option value="Sarawak">Sarawak</option>
+                        <option value="Selangor">Selangor</option>
+                        <option value="Terangganu">Terengganu</option>
+                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                    </select>
 
-                <select id="property-type">
-                    <option value="house">House</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="condo">Condo</option>
-                    <option value="townhouse">Townhouse</option>
-                    <option value="duplex">Duplex</option>
-                    <option value="villa">Villa</option>
-                    <option value="cottage">Cottage</option>
-                    <option value="bungalow">Bungalow</option>
-                    <option value="commercial">Commercial</option>
-                    <option value="land">Land</option>
-                    <option value="other">Other</option>
-                </select>
+                    <input type="hidden" name="property-mode" value="Sales">
+                    
+                    <select id="property-type" name="property-type">
+                        <option value="" selected>Type</option>
+                        <option value="House">House</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Condominium">Condo</option>
+                        <option value="Townhouse">Townhouse</option>
+                        <option value="Duplex">Duplex</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Cottage">Cottage</option>
+                        <option value="Bungalow">Bungalow</option>
+                        <option value="Commercial">Commercial</option>
+                        <option value="Land">Land</option>
+                        <option value="Other">Other</option>
+                    </select>
 
-                <input type="text" name="property-content" class="home-search-text"
-                    placeholder="Insert location, Property Name or Neighborhoods">
+                    <input type="text" name="property-content" class="home-search-text"
+                        placeholder="Insert location, Property Name or Neighborhoods">
 
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </div>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
         </div>
 
     </header>
 
     <div class="property-list">
+        <form action="/filter" method="POST">
+            <div class="property-filter">
+                <input type="hidden" name="property-mode" value="Sales">
 
+                <select class="select-min-price" name="select-min-price">
+                    <option value="" selected>Min Price(RM)</option>
+                    <option value="100000">100k</option>
+                    <option value="200000">200k</option>
+                    <option value="300000">300k</option>
+                    <option value="400000">400k</option>
+                    <option value="500000">500k</option>
+                    <option value="600000">600k</option>
+                    <option value="700000">700k</option>
+                    <option value="800000">800k</option>
+                    <option value="900000">900k</option>
+                </select>
 
-        <div class="property-filter">
-            <select class="select-min-price" name="select-min-price">
-                <option selected>Min Price(RM)</option>
-                <option value="100000">100k</option>
-                <option value="200000">200k</option>
-                <option value="300000">300k</option>
-                <option value="400000">400k</option>
-                <option value="500000">500k</option>
-                <option value="600000">600k</option>
-                <option value="700000">700k</option>
-                <option value="800000">800k</option>
-                <option value="900000">900k</option>
-            </select>
+                <select class="select-max-price" name="select-max-price">
+                    <option value="" selected>Max Price(RM)</option>
+                    <option value="100000">100k</option>
+                    <option value="200000">200k</option>
+                    <option value="300000">300k</option>
+                    <option value="400000">400k</option>
+                    <option value="500000">500k</option>
+                    <option value="600000">600k</option>
+                    <option value="700000">700k</option>
+                    <option value="800000">800k</option>
+                    <option value="900000">900k</option>
+                </select>
 
-            <select class="select-max-price" name="select-max-price">
-                <option selected>Max Price(RM)</option>
-                <option value="100000">100k</option>
-                <option value="200000">200k</option>
-                <option value="300000">300k</option>
-                <option value="400000">400k</option>
-                <option value="500000">500k</option>
-                <option value="600000">600k</option>
-                <option value="700000">700k</option>
-                <option value="800000">800k</option>
-                <option value="900000">900k</option>
-            </select>
+                <select class="property-size" name="property-size">
+                    <option value="" selected>Built-up Size(sq.ft.)</option>
+                    <option value="500">More than 500</option>
+                    <option value="1000">More than 1000</option>
+                    <option value="1500">More than 1500</option>
+                    <option value="2000">More than 2000</option>
+                    <option value="2500">More than 2500</option>
+                    <option value="3000">More than 3000</option>
+                </select>
 
-            <select class="property-size" name="property-size">
-                <option selected>Built-up Size(sq.ft.)</option>
-                <option value="500">0-500</option>
-                <option value="1000">501-1000</option>
-                <option value="1500">1001-1500</option>
-                <option value="2000">1501-2000</option>
-                <option value="2500">2001-2500</option>
-                <option value="30000">2501-3000</option>
-            </select>
+                <select class="property-bedroom" name="property-bedroom">
+                    <option value="" selected>Bedroom</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                </select>
 
-            <select class="property-bedroom" name="property-bedroom">
-                <option selected>Bedroom</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-                <option value="5">5+</option>
-            </select>
+                <button type="submit" class="property-button-filter">Filter <i class="fa fa-filter"></i></button>
+        </form>
+    </div>
 
-            <button type="submit" class="property-button-filter">Filter <i class="fa fa-filter"></i></button>
+    <div class="property-list-container">
+        <div class="property-buy-result">
+            <p>Showing {{ property_data|length }} properties</p>
         </div>
 
-        <div class="property-list-container">
-            <div class="property-buy-result">
-                <p>Showing {{ property_data|length }} properties</p>
-            </div>
-
-            <div class="property-list-container">
-                {% for property in property_data %}
-                <div class="property" data-property-id="{{ property.propertyId }}" onclick="viewPropertyDetails(this)">
-                    <form method="POST" action="/property_details_buy">
-                        <input type="hidden" name="propertyID" value="{{ property.propertyId }}">
-                    </form>
-                    <div class="agent-container">
-                        <img alt="Agent Image" src="{{ url_for('static', filename=property.agentImage) }}"
-                            class="agent-image" style="width: 50px; height: 50px; border-radius: 20px;">
-                        &nbsp<p><b>{{property.agentName}}</b></p>
+        <div class="property-list-container" id="propertyListContainer">
+            {% for property in property_data %}
+            <div class="property" data-property-id="{{ property.propertyId }}" onclick="viewPropertyDetails(this)">
+                <form method="POST" action="/property_details_buy">
+                    <input type="hidden" name="propertyID" value="{{ property.propertyId }}">
+                </form>
+                <div class="agent-container">
+                    <img alt="Agent Image" src="{{ url_for('static', filename=property.agentImage) }}"
+                        class="agent-image" style="width: 50px; height: 50px; border-radius: 20px;">
+                    &nbsp<p><b>{{property.agentName}}</b></p>
+                </div>
+                <div class="property-images">
+                    <div class="image-container">
+                        {% for image in property.propertyImages %}
+                        <img alt="Property Image" src="{{ url_for('static', filename=image) }}" class="property-image"
+                            style="width:700px; height:350px;">
+                        {% endfor %}
                     </div>
-                    <div class="property-images">
-                        <div class="image-container">
-                            {% for image in property.propertyImages %}
-                            <img alt="Property Image" src="{{ url_for('static', filename=image) }}"
-                                class="property-image" style="width:700px; height:350px;">
-                            {% endfor %}
-                        </div>
+                    <div class="image-navigation">
                         <div class="image-navigation">
-                            <div class="image-navigation">
-                                <span class="prev"
-                                    onclick="changeImage(-1, this.closest('.property')); event.stopPropagation();">&#10094;</span>
-                                <span class="next"
-                                    onclick="changeImage(1, this.closest('.property')); event.stopPropagation();">&#10095;</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <h2>{{ property.propertyTitle }}</h2>
-                    <h3>For Sales: RM{{ property.propertyPrice }} </h3>
-                    <div class="property-details-row">
-                        <div class="property-details">
-                            <img alt="Property Image"
-                                src="{{ url_for('static', filename='/property/icons-house-hold.png') }}"
-                                class="property-details-icon" style="width: 40px;">&nbsp
-                            <p>{{property.houseHold}}</p>
-                        </div>
-                        <div class="property-details">
-                            <img alt="Property Image"
-                                src="{{ url_for('static', filename='/property/icons-house.png') }}"
-                                class="property-details-icon" style="width: 40px;">&nbsp
-                            <p>{{property.propertyType}}</p>
-                        </div>
-                        <div class="property-details">
-                            <img alt="Property Image"
-                                src="{{ url_for('static', filename='/property/icons-built-in-size.png') }}"
-                                class="property-details-icon" style="width: 40px;">&nbsp
-                            <p>{{property.builtInSize}} SQ.FT</p>
-                        </div>
-                    </div>
-
-                    <div class="property-details-row2">
-                        <div class="property-details">
-                            <img alt="Property Image"
-                                src="{{ url_for('static', filename='/property/icons-furniture.png') }}"
-                                class="property-details-icon" style="width: 40px;">&nbsp
-                            <p>{{property.furniture}} Furniture</p>
-                        </div>
-
-                        <div class="property-details">
-                            <img alt="Property Image"
-                                src="{{ url_for('static', filename='/property/icons-bedroom.png') }}"
-                                class="property-details-icon" style="width: 40px;">&nbsp
-                            <p>{{property.bedroom}} Bedrooms</p>
-                        </div>
-
-                        <div class="property-details">
-                            <img alt="Property Image"
-                                src="{{ url_for('static', filename='/property/icons-bathroom.png') }}"
-                                class="property-details-icon" style="width: 40px;">&nbsp
-                            <p> {{property.bathroom}} Bathroom</p>
+                            <span class="prev"
+                                onclick="changeImage(-1, this.closest('.property')); event.stopPropagation();">&#10094;</span>
+                            <span class="next"
+                                onclick="changeImage(1, this.closest('.property')); event.stopPropagation();">&#10095;</span>
                         </div>
 
                     </div>
                 </div>
-                {% endfor %}
+                <h2>{{ property.propertyTitle }}</h2>
+                <h3>For Sales: RM{{ property.propertyPrice }} </h3>
+                <div class="property-details-row">
+                    <div class="property-details">
+                        <img alt="Property Image"
+                            src="{{ url_for('static', filename='/property/icons-house-hold.png') }}"
+                            class="property-details-icon" style="width: 40px;">&nbsp
+                        <p>{{property.houseHold}}</p>
+                    </div>
+                    <div class="property-details">
+                        <img alt="Property Image" src="{{ url_for('static', filename='/property/icons-house.png') }}"
+                            class="property-details-icon" style="width: 40px;">&nbsp
+                        <p>{{property.propertyType}}</p>
+                    </div>
+                    <div class="property-details">
+                        <img alt="Property Image"
+                            src="{{ url_for('static', filename='/property/icons-built-in-size.png') }}"
+                            class="property-details-icon" style="width: 40px;">&nbsp
+                        <p>{{property.builtInSize}} SQ.FT</p>
+                    </div>
+                </div>
+
+                <div class="property-details-row2">
+                    <div class="property-details">
+                        <img alt="Property Image"
+                            src="{{ url_for('static', filename='/property/icons-furniture.png') }}"
+                            class="property-details-icon" style="width: 40px;">&nbsp
+                        <p>{{property.furniture}} Furniture</p>
+                    </div>
+
+                    <div class="property-details">
+                        <img alt="Property Image" src="{{ url_for('static', filename='/property/icons-bedroom.png') }}"
+                            class="property-details-icon" style="width: 40px;">&nbsp
+                        <p>{{property.bedroom}} Bedrooms</p>
+                    </div>
+
+                    <div class="property-details">
+                        <img alt="Property Image" src="{{ url_for('static', filename='/property/icons-bathroom.png') }}"
+                            class="property-details-icon" style="width: 40px;">&nbsp
+                        <p> {{property.bathroom}} Bathroom</p>
+                    </div>
+
+                </div>
             </div>
+            {% endfor %}
         </div>
+
+        <div class="pagination">
+            <button id="prevButton" onclick="changePage(-1)">
+                <i class="fas fa-arrow-alt-circle-left"></i>Previous
+            </button>
+            <span id="currentPage">1</span>
+            <button id="nextButton" onclick="changePage(1)">
+                Next<i class="fas fa-arrow-alt-circle-right"></i>
+            </button>
+        </div>
+    </div>
     </div>
 
 
@@ -590,6 +755,71 @@
             // Display the current image
             images[imageIndex].style.display = "block";
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var properties = document.querySelectorAll(".property");
+            var propertiesPerPage = 5;
+            var currentPage = 1;
+
+            function showPage(pageNumber) {
+                var startIdx = (pageNumber - 1) * propertiesPerPage;
+                var endIdx = startIdx + propertiesPerPage;
+
+                properties.forEach(function (property, index) {
+                    if (index >= startIdx && index < endIdx) {
+                        property.style.display = "block";
+                    } else {
+                        property.style.display = "none";
+                    }
+                });
+
+                // Update the current page number in the pagination display
+                document.getElementById("currentPage").innerText = pageNumber;
+            }
+
+            function updatePaginationButtons() {
+                var totalPages = Math.ceil(properties.length / propertiesPerPage);
+
+                // Remove existing pagination buttons
+                var pagination = document.querySelector(".pagination");
+                if (pagination) {
+                    pagination.parentNode.removeChild(pagination);
+                }
+
+                // Create a new set of pagination buttons
+                var newPagination = document.createElement("div");
+                newPagination.classList.add("pagination");
+
+                var prevButton = document.createElement("button");
+                prevButton.innerHTML = '<i class="fas fa-arrow-alt-circle-left"></i> Previous';
+                prevButton.addEventListener("click", function () {
+                    currentPage = Math.max(currentPage - 1, 1);
+                    showPage(currentPage);
+                    updatePaginationButtons();
+                });
+                newPagination.appendChild(prevButton);
+
+                // Display the current page number
+                var currentPageSpan = document.createElement("span");
+                currentPageSpan.id = "currentPage";
+                currentPageSpan.innerText = currentPage;
+                newPagination.appendChild(currentPageSpan);
+
+                var nextButton = document.createElement("button");
+                nextButton.innerHTML = 'Next <i class="fas fa-arrow-alt-circle-right"></i>';
+                nextButton.addEventListener("click", function () {
+                    currentPage = Math.min(currentPage + 1, totalPages);
+                    showPage(currentPage);
+                    updatePaginationButtons();
+                });
+                newPagination.appendChild(nextButton);
+
+                document.body.appendChild(newPagination);
+            }
+
+            showPage(currentPage);
+            updatePaginationButtons();
+        });
 
 
     </script>

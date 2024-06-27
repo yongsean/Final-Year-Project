@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .news-pages {
+            margin: 40px;
+            width: 900px;
+        }
+
+        .content-news {
+            display: flex;
+            margin: 20px;
+        }
+
+        .news-describe {
+            margin-left: 20px;
+        }
+
+        .news-container {
+            display: flex;
+        }
+
+        .news-trend-container {
+            margin: 40px;
+            width: 450px;
+        }
+
+        .news-trend-ol {
+            list-style-type: none;
+            counter-reset: news-counter;
+            padding: 0;
+        }
+
+        .news-trend-ol li {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .news-trend-ol li::before {
+            content: counter(news-counter);
+            counter-increment: news-counter;
+            position: absolute;
+            left: -30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #CB4004;
+        }
+        .content-news a{
+            text-decoration: none;
+            color: black;
+        }
+        .news-describe a{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
+
+        <div class="header-user">
+            {% if 'user_id' in session %}
+            <div class="dropdown">
+                <div class="exists-account">
+                    {% if 'user_profile_picture' in session %}
+                    <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                        alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                    <div class="default-profile-icon">
+                        <i class="fa fa-user" style="font-size: 42px;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="dropdown-content">
+                    <a href="/user_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            {% else %}
+
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
+    </nav>
+
+    <div class="news-container">
+        <div class="news-pages">
+            <h2>Latest News</h2>
+            <hr>
+
+            {% for news_item in news_list %}
+            <div class="news-list">
+                <div class="content-news">
+                    {% if news_item['newsImages'] %}
+                    <a href="#" onclick="navigateTo('/news_details?newsId={{ news_item.newsId }}')">
+                        <img src="{{ url_for('static', filename=news_item['newsImages']) }}" alt="News Image"
+                            style="height:200px; width:300px;">
+                    </a>
+                    {% endif %}
+                    <div class="news-describe">
+                        
+                        <h3>
+                            <a href="#" onclick="navigateTo('/news_details?newsId={{ news_item.newsId }}')">
+                            {{ news_item['newsTitle'] }}
+                            </a>
+
+                        </h3>
+                        <p style="color:#a39d9d">{{ news_item['newsDescription']|truncate(200, end='...') }}</p>
+                        <p>{{ news_item['newsDate'].strftime('%B %d, %Y') }}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+
+        <div class="news-trend-container">
+            <h3>TRENDING NOW</h3>
+            <hr>
+            <ol class="news-trend-ol">
+                {% for news_item in news_list %}
+                <li>
+                    <div class="news-trend">
+                        <div class="news-describe">
+                            <h3><a href="#" onclick="navigateTo('/news_details?newsId={{ news_item.newsId }}')">{{ news_item['newsTitle'] }}</a></h3>
+                            <p>{{ news_item['newsDate'].strftime('%B %d, %Y') }}</p>
+                        </div>
+                    </div>
+                </li>
+                <hr>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+    </script>
+
+</body>
+
+</html>

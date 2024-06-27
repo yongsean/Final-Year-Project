@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @media only screen and (max-width: 600px) {
+            .header-home {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header-user {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 10px;
+                /* Add margin for better spacing */
+                text-align: right;
+            }
+
+            .exists-account,
+            .padding-account {
+                display: inline-block;
+                /* Display login/signup elements inline */
+                margin: 0;
+            }
+
+            .padding-account {
+                margin: 10px 0;
+            }
+
+            .dropdown {
+                margin-left: 0;
+            }
+
+            .dropdown-content {
+                top: 70px;
+            }
+        }
+
+        /* Responsive styles for navigation */
+        @media only screen and (max-width: 720px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .user-container {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .user-content {
+                margin: 10px;
+            }
+
+            .user-content table tr {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                margin-bottom: 10px;
+            }
+
+            .user-content table td {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .user-content table label {
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #333;
+                display: block;
+            }
+
+            table input,
+            select {
+                margin-bottom: 10px;
+                padding: 8px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                color: rgb(147, 142, 142);
+                width: 100%;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+            button {
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Responsive styles for overview container */
+        @media only screen and (max-width: 1200px) {
+            .overview-container {
+                width: 90%;
+            }
+        }
+
+        /* Responsive styles for neighborhood place */
+        @media only screen and (max-width: 768px) {
+            .neighborhood-place {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+
+        /* Responsive styles for overview content */
+        @media only screen and (max-width: 768px) {
+            .overview-container {
+                width: 90%;
+            }
+
+            .overview-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .overview-content h2 {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header-home {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-user {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .padding-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            background-color: #758AC1;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            height: 70px;
+
+        }
+
+        .exists-account {
+            margin-left: 80px;
+            margin-right: 40px;
+            margin-top: 20px;
+            border-radius: 50px;
+            height: 70px;
+        }
+
+        .default-profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        /* Style for the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        hr {
+            border: 1px solid #E0E0E0;
+        }
+
+        nav {
+            border-radius: 50px;
+            padding: 10px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        nav a:hover {
+            background-color: #CB4004;
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .user-info img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .user-info .default-profile-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .user-info form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .picture-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .file-input-label {
+            position: relative;
+            background-color: #758AC1;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-label:hover {
+            background-color: #627aae;
+        }
+
+        #profile-picture-input {
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .user-content {
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: transparent;
+        }
+
+        .user-content h3 {
+            margin-top: 10px;
+            color: #392e2e;
+        }
+
+        .user-content table {
+            width: 100%;
+            border: none;
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        .user-content td {
+            padding: 8px;
+        }
+
+        .user-content label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        table input,
+        select {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            color: rgb(147, 142, 142);
+        }
+
+        .user-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button[type="button"] {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #d32f2f;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .input-password {
+            background-color: #d8d3d3;
+        }
+
+        .input-password-focused {
+            background-color: transparent;
+        }
+
+        .fa-icon {
+            margin-right: 5px;
+        }
+
+        /* Style for the update and cancel buttons */
+        .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+
+        .button-container button[type="button"] {
+            background-color: #f44336;
+        }
+
+        .button-container button[type="button"]:hover {
+            background-color: #d32f2f;
+        }
+
+        #error-container {
+            color: red;
+            margin-top: 10px;
+        }
+
+        /* Add this style for the error messages */
+        .error-message {
+            padding: 10px;
+            background-color: #FFD2D2;
+            border: 1px solid #FF0000;
+            border-radius: 5px;
+            margin: 20px;
+        }
+
+        button.disabled-button {
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-home">
+        <a href="/click_home">
+            <img alt="Real Estate logo" src="{{ url_for('static', filename='real_estate_logo.png')}}"
+                style="width:180px;height:100px;">
+        </a>
+
+        <div class="header-user">
+            {% if 'user_id' in session %}
+            <div class="dropdown">
+                <div class="exists-account">
+                    {% if 'user_profile_picture' in session %}
+                    <img src="{{ url_for('static', filename=session['user_profile_picture']) }}"
+                        alt="User Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                    <div class="default-profile-icon">
+                        <i class="fa fa-user" style="font-size: 42px;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="dropdown-content">
+                    <a href="/user_profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="dropdown">
+                <div class="padding-account">
+                    <h3>Login or Sign Up</h3>
+                </div>
+                <div class="dropdown-content">
+                    <a href="/login_account">Login</a>
+                    <a href="/register_account">Sign Up</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="/property_list_buy">Buy</a>
+        <a href="/property_list_rent">Rent</a>
+        <a href="/neighborhood_page">Neighborhoods</a>
+        <a href="/compare_Analysis">Compare & Analysis</a>
+        <a href="/news_pages">News & Insight</a>
+    </nav>
+
+    <div class="user-container">
+        <form action="/update_profile" method="post" enctype="multipart/form-data">
+            <div class="user-info">
+                {% if 'user_profile_picture' in session %}
+                <img src="{{ url_for('static', filename=session['user_profile_picture']) }}" alt="User Profile Picture">
+                {% else %}
+                <div class="default-profile-icon">
+                    <i class="fa fa-user" style="font-size: 50px;"></i>
+                </div>
+                {% endif %}
+                <div class="picture-row">
+                    <label class="file-input-label" for="profile-picture-input">Choose File</label>
+                    <input type="file" name="profile_picture" id="profile-picture-input" accept="image/*">
+                    <div class="file-name" id="file-name"></div>
+                </div>
+            </div>
+
+            <div class="user-content">
+                <h3>Profile Information</h3>
+                <table>
+                    <tr>
+                        <td><label for="full-name-input">Name</label></td>
+                        <td style="padding-right:40px;"><input type="text" name="full_name" id="full-name-input"
+                                value="{{customer_name}}" placeholder="Full Name"></td>
+                        <td><label for="email-input">Email</label></td>
+                        <td style="padding-right:40px;"><input type="email" name="email" id="email-input"
+                                value="{{customer_email}}" placeholder="Email" readonly></td>
+                        <td><label for="phone-input">Phone</label></td>
+                        <td><input type="text" name="phone_number" id="phone-input" placeholder="xxxxxxxxx"
+                                value="{{customer_phone}}"></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="date-of-birth-input">Date Of Birth</label></td>
+                        <td style="padding-right:40px;"><input type="date" name="dateOfBirth" id="date-of-birth"
+                                value="{{date_Of_Birth}}"></td>
+                        <td><label for="monthly-income-input">Income(RM)</label></td>
+                        {% if income is not none %}
+                        <td style="padding-right:40px;"><input type="text" name="monthIncome" id="monthly-income"
+                                value="{{ '{:.2f}'.format(income) }}"></td>
+                        {% else %}
+                        <td style="padding-right:40px;"><input type="text" name="monthIncome" id="monthly-income"
+                                value="" placeholder="Monthly Income"></td>
+                        {% endif %}
+
+                        <td><label for="password-input">Password</label></td>
+                        <td style="padding-right:40px;"><input type="password" name="password" id="password"
+                                class="input-password" placeholder="Click here to enable password change"></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="user-content">
+                <h3>Preference</h3>
+                <table>
+                    <tr>
+                        <td><label for="preferred-location-input">Location</label></td>
+                        {% if preferred_Location is not none %}
+                        <td style="padding-right:40px;"><input type="text" name="preferred_location"
+                                id="preferred-location-input" placeholder="Preferred Location"
+                                value="{{preferred_Location}}"></td>
+                        {% else %}
+                        <td style="padding-right:40px;"><input type="text" name="preferred_location"
+                                id="preferred-location-input" placeholder="Preferred Location"></td>
+                        {% endif %}
+                        <td><label for="property-type-input">Property Type</label></td>
+                        <td>
+                            <select id="property-type" name="preferred_property_type">
+                                <option value="" selected>Type</option>
+                                <option value="House">House</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="Condominium">Condo</option>
+                                <option value="Townhouse">Townhouse</option>
+                                <option value="Duplex">Duplex</option>
+                                <option value="Villa">Villa</option>
+                                <option value="Cottage">Cottage</option>
+                                <option value="Bungalow">Bungalow</option>
+                                <option value="Commercial">Commercial</option>
+                                <option value="Land">Land</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </td>
+                        <script>
+                            // Set the selected option based on the value of preferred_Property_Type
+                            var preferredPropertyType = "{{ preferred_Property_Type }}";
+                            var selectElement = document.getElementById("property-type");
+
+                            for (var i = 0; i < selectElement.options.length; i++) {
+                                if (selectElement.options[i].value === preferredPropertyType) {
+                                    selectElement.options[i].selected = true;
+                                    break;
+                                }
+                            }
+                        </script>
+                        <td><label for="max-price-input">Maximum Price(RM)</label></td>
+                        <td>
+                            {% if maximum_Price is not none %}
+                            <input type="text" name="max_price" id="max-price-input" placeholder="Maximum Price"
+                                value="{{ '{:.2f}'.format(maximum_Price) }}">
+                            {% else %}
+                            <input type="text" name="max_price" id="max-price-input" placeholder="Maximum Price"
+                                value="">
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="preferred-size-input">Preferred Size</label></td>
+                        {% if preferred_Size is not none %}
+                        <td style="padding-right:40px;"><input type="text" name="preferred_size"
+                                id="preferred-size-input" placeholder="Preferred Size" value="{{preferred_Size}}"></td>
+                        {% else %}
+                        <td style="padding-right:40px;"><input type="text" name="preferred_size"
+                                id="preferred-size-input" placeholder="Preferred Size"></td>
+                        {% endif %}
+                        <td><label for="bedrooms-input">Number of Bedrooms</label></td>
+                        <td><input type="number" name="num_bedrooms" id="bedrooms-input"
+                                placeholder="Number of Bedrooms" value="{{preferred_Bedroom}}">
+                        </td>
+                        <td><label for="bathrooms-input">Number of Bathrooms</label></td>
+                        <td style="padding-right:40px;"><input type="number" name="num_bathrooms" id="bathrooms-input"
+                                placeholder="Number of Bathrooms" value="{{preferred_Bathroom}}"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="error-container"></div>
+
+            <div class="button-container">
+                <button type="submit"><i class="fa fa-check fa-icon"></i>Update</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('profile-picture-input').addEventListener('change', function () {
+            var fileName = this.value.split('\\').pop();
+            document.getElementById('file-name').innerText = fileName;
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var passwordInput = document.getElementById('password');
+            var passwordValidationMessages = document.getElementById('error-container');
+
+            passwordInput.addEventListener('focus', function () {
+                // Remove placeholder and change background on focus
+                this.placeholder = '';
+                this.classList.add('input-password-focused');
+            });
+
+            passwordInput.addEventListener('blur', function () {
+                // Restore placeholder and change background on blur if the input is empty
+                if (!this.value.trim()) {
+                    this.placeholder = 'Click here to enable password change';
+                    this.classList.remove('input-password-focused');
+                }
+            });
+
+            passwordInput.addEventListener('input', function () {
+                // Validate the password and display messages
+                validatePassword(this.value);
+            });
+
+            document.getElementById('full-name-input').addEventListener('input', function () {
+                // Validate the name
+                validateName(this.value.trim());
+            });
+
+            document.getElementById('phone-input').addEventListener('input', function () {
+                // Validate the phone number
+                validatePhoneNumber(this.value.trim());
+            });
+
+            document.getElementById('monthly-income').addEventListener('input', function () {
+                // Validate the income as a double
+                validateDoubleInput(this.value.trim(), 'monthly-income');
+            });
+
+            document.getElementById('max-price-input').addEventListener('input', function () {
+                // Validate the maximum price as a double
+                validateDoubleInput(this.value.trim(), 'max-price-input');
+            });
+
+            document.getElementById('preferred-size-input').addEventListener('input', function () {
+                // Validate the preferred size
+                validateDigitInput(this.value.trim(), 'preferred-size-input');
+            });
+
+            document.getElementById('bedrooms-input').addEventListener('input', function () {
+                // Validate the number of bedrooms
+                validateDigitInput(this.value.trim(), 'bedrooms-input');
+            });
+
+            document.getElementById('bathrooms-input').addEventListener('input', function () {
+                // Validate the number of bathrooms
+                validateDigitInput(this.value.trim(), 'bathrooms-input');
+            });
+
+
+
+            function validatePassword(password) {
+                // Reset previous validation messages
+                passwordValidationMessages.innerHTML = '';
+
+                // If the password is empty, do not display any error messages
+                if (password.trim() === '') {
+                    disableUpdateButton(false);
+                    return;
+                }
+
+                var errorMessages = [];
+
+                // Minimum length validation
+                if (password.length < 8) {
+                    errorMessages.push('Password must be at least 8 characters long.');
+                    disableUpdateButton(true);
+                }
+
+                // Uppercase letter validation
+                if (!/[A-Z]/.test(password)) {
+                    errorMessages.push('Password must contain at least one uppercase letter.');
+                    disableUpdateButton(true);
+                }
+
+                // Lowercase letter validation
+                if (!/[a-z]/.test(password)) {
+                    errorMessages.push('Password must contain at least one lowercase letter.');
+                    disableUpdateButton(true);
+                }
+
+                // Digit validation
+                if (!/\d/.test(password)) {
+                    errorMessages.push('Password must contain at least one digit.');
+                    disableUpdateButton(true);
+                }
+
+                // Special character validation (customize the regex based on your allowed special characters)
+                if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password)) {
+                    errorMessages.push('Password must contain at least one special character.');
+                    disableUpdateButton(true);
+                }
+
+                // Display all error messages
+                if (errorMessages.length > 0) {
+                    displayErrorMessage(errorMessages.join('<br>'));
+                }
+                // Clear error message if no errors
+                else {
+                    passwordValidationMessages.innerHTML = '';
+                    disableUpdateButton(false);
+                }
+            }
+
+            function displayErrorMessage(message) {
+                var errorContainer = document.getElementById('error-container');
+                errorContainer.innerHTML = '<div class="error-message">' + message + '</div>';
+            }
+
+            function disableUpdateButton() {
+                var updateButton = document.querySelector('button[type="submit"]');
+                var errorContainers = document.querySelectorAll('.error-message');
+                var disable = false;
+
+                // Check if any error messages exist
+                for (var i = 0; i < errorContainers.length; i++) {
+                    if (errorContainers[i].innerHTML.trim() !== '') {
+                        disable = true;
+                        break;
+                    }
+                }
+
+                updateButton.disabled = disable;
+
+                if (disable) {
+                    updateButton.classList.add('disabled-button');
+                } else {
+                    updateButton.classList.remove('disabled-button');
+                }
+            }
+
+
+            function validateName(name) {
+                var errorMessages = [];
+
+                if (name === '') {
+                    errorMessages.push('Name cannot be null.');
+                    disableUpdateButton(true);
+                }
+
+                if (errorMessages.length > 0) {
+                    displayErrorMessage(errorMessages.join('<br>'));
+                } else {
+                    passwordValidationMessages.innerHTML = '';
+                    disableUpdateButton(false);
+                }
+            }
+
+            function validatePhoneNumber(phone) {
+                var phoneRegex = /^\d{10}$/; // Updated to match the xxxxxxxxx format
+                var errorMessages = [];
+
+                if (!phoneRegex.test(phone)) {
+                    errorMessages.push('Invalid phone number format. Please use xxxxxxxxx format.');
+                    disableUpdateButton(true);
+                }
+
+                if (errorMessages.length > 0) {
+                    displayErrorMessage(errorMessages.join('<br>'));
+                } else {
+                    passwordValidationMessages.innerHTML = '';
+                    disableUpdateButton(false);
+                }
+            }
+
+            function validateDoubleInput(value, inputId) {
+                var doubleRegex = /^\d+(\.\d+)?$/;
+                var errorMessages = [];
+
+                if (!doubleRegex.test(value)) {
+                    var inputName = inputId.replace('-input', '').replace('-', ' ');
+                    errorMessages.push(inputName.charAt(0).toUpperCase() + inputName.slice(1) + ' must be a valid number.');
+                    disableUpdateButton(true);
+                }
+
+                if (errorMessages.length > 0) {
+                    displayErrorMessage(errorMessages.join('<br>'));
+                } else {
+                    passwordValidationMessages.innerHTML = '';
+                    disableUpdateButton(false);
+                }
+            }
+
+            disableUpdateButton(false); // Set to true if you want the button to be disabled by default
+        });
+    </script>
+</body>
+
+</html>
